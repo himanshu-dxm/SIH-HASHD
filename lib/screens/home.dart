@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool otpSent = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.white
                               ),
                               maxLength: 16,
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               decoration: CommonStyles.textFieldStyle("Enter Name"),
                             ),
                             SizedBox(height: 15,),
@@ -74,12 +75,40 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(
                                   color: Colors.white
                               ),
-                              maxLength: 16,
+                              maxLength: 10,
                               keyboardType: TextInputType.number,
                               decoration: CommonStyles.textFieldStyle("Enter Phone Number"),
                             ),
-                            SizedBox(height: 15,),
-
+                            SizedBox(height: 20,),
+                            otpSent?TextFormField(
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
+                              maxLength: 6,
+                              keyboardType: TextInputType.number,
+                              decoration: CommonStyles.textFieldStyle("Enter OTP"),
+                            ):
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  otpSent = true;
+                                });
+                              },
+                              child: Container(
+                                child: CommonStyles.roundButton(context, "Send OTP"),
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            otpSent?GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  otpSent=false;
+                                });
+                              },
+                              child: Container(
+                                child: CommonStyles.roundButton(context, "Submit"),
+                              ),
+                            ):Container()
                           ],
                         ),
                       )
