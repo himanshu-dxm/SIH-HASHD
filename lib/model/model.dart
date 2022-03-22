@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 //https://github.com/nandakishormpai/Plant_Disease_Detector
 //thanks vroooos 
+// var ans = createAlbum()
+//print(ans)
 Future createAlbum()async {
   try{
   // var bytes = (Image.asset('download.jpg')).image;

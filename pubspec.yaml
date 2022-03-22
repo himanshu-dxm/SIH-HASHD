@@ -22,6 +22,8 @@ environment:
 
 dependencies:
   http:
+  pdf: ^3.4.2
+  image_picker: 
 #  google_fonts:
   cupertino_icons :
   firebase: 
