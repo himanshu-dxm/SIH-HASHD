@@ -21,6 +21,10 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  firebase: 
+  firebase_database:
+  firebase_storage: 
+  shared_preferences: 
   flutter:
     sdk: flutter
 
