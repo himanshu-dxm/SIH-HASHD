@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hashd/model/capturePics.dart';
-import 'package:hashd/widgets/common_styles.dart';
+import 'package:hashd/screens/reviewPage.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,16 +11,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isDeleted = true;
   int numImages = 0;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     bool isLoading = false;
-    return !isLoading?Scaffold(
+    return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("HASHD"),
       ),
-      body: Column(
+      body: !isLoading?Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Top Notifications
@@ -29,9 +31,9 @@ class _HomePageState extends State<HomePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    // TODO: Weather info Page
                     WeatherInfoView(),
-                    SizedBox(height: 2,),
-                    Container(
+                    !isDeleted?Container(
                       margin: EdgeInsets.all(8),
                       child: Center(
                         child: Card(
@@ -51,12 +53,18 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   TextButton(
                                     child: Text('Check Details'),
-                                    onPressed: () {/* ... */},
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
+                                    },
                                   ),
                                   const SizedBox(width: 8),
                                   TextButton(
                                     child: Text('Delete'),
-                                    onPressed: () {/* ... */},
+                                    onPressed: () {
+                                      setState(() {
+                                        isDeleted = true;
+                                      });
+                                    },
                                   ),
                                   const SizedBox(width: 8),
                                 ],
@@ -65,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                    ),
+                    ):Container(),
                   ],
                 ),
               ),
@@ -111,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       child: FloatingActionButton.extended(
                           onPressed: () async {
-                            print("Button Pressed");
+                            print("Add Button Pressed");
                             setState(() {
                               isLoading = true;
                             });
@@ -130,12 +138,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Container(
                       child: FloatingActionButton.extended(
-                          onPressed: (){
+                          onPressed: () async {
                             setState(() {
                               numImages = 0;
+                              isLoading = true;
                             });
                             CapturePicture.images.clear();
                             print("Done Capturing");
+                            var x=await CapturePicture.getData();
+                            setState(() {
+                              isLoading = false;
+                            });
+                            isDeleted = false;
                           },
                           label: const Text(
                             "Done"
@@ -149,6 +163,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      )):Center(child: CircularProgressIndicator());
+      ):Center(child: CircularProgressIndicator()));
   }
 }
