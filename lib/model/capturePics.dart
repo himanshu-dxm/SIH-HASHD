@@ -6,7 +6,8 @@ class CapturePicture{
   static List<Uint8List> images = [];
   static var num =1;
 static Future<List<dynamic>> getImages()async{
-  for(int i=0;i<num;i++)
+  try{
+    for(int i=0;i<num;i++)
   {
     print("adding img"+i.toString());
     await ImagePicker().pickImage(source: ImageSource.camera).then((value)async {
@@ -14,6 +15,9 @@ static Future<List<dynamic>> getImages()async{
     });
   }
   return images;
+}catch(e){
+  return [];
+}
 }
 static Future<dynamic> getData()async{
   return await getSuggestions(images[0]);

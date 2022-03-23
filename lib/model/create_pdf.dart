@@ -7,6 +7,7 @@ import 'pdf_format.dart';
 import 'package:path_provider/path_provider.dart';
 
 void generatePDF(PDFTitle title,Id id,Details details,images)async{
+  try{
   var pdf = new Document();
   //first page
   pdf.addPage(
@@ -59,5 +60,7 @@ await File(filePath!.path+"/new.pdf").create(recursive: true).then((file)async {
         await file.writeAsBytes(await pdf.save());
         print("saved");
       });
-
+  }catch(e){
+    print(e.toString());
+  }
 }
