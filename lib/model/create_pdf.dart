@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
+// import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'pdf_format.dart';
+import 'package:path_provider/path_provider.dart';
 
-void generatePDF(Title title,Id id,Details details,Images_upload images){
+void generatePDF(PDFTitle title,Id id,Details details,images)async{
   var pdf = new Document();
   //first page
   pdf.addPage(
@@ -22,30 +25,39 @@ void generatePDF(Title title,Id id,Details details,Images_upload images){
     })
   );
 
-  for(int i=0;i<images.images.length;i++)
+  for(int i=0;i<images.length;i++)
   {
     pdf.addPage(
       MultiPage(
-        margin: EdgeInsets.all(10),
-        pageFormat: PdfPageFormat.a4,
-        maxPages: 1,
+        pageFormat: PdfPageFormat(PdfPageFormat.a4.width.toDouble()+20, PdfPageFormat.a4.height.toDouble()+120),
+        // maxPages: 1,
         build: (c){
+          var im = MemoryImage(images[i]);
           return [
-            Wrap(
-              children: [
-                Container(
-                  decoration: pw.BoxDecoration(
-                    image: pw.DecorationImage(image: images.images[i],fit: BoxFit.fill)
-                  )
-                ),
-              ]
-            )
-          ];
+             Wrap(
+                children: [
+                 Container(
+                    height: PdfPageFormat.a4.height,
+                    width: PdfPageFormat.a4.width,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image:im,
+                        fit: BoxFit.contain,
+                      ),
+                      // shape: BoxShape.circle,
+                    ),
+                  ) 
+                ]
+              )
+            ];
         }
       ),
     );
   }
-  
-
+  var filePath = await getExternalStorageDirectory();
+await File(filePath!.path+"/new.pdf").create(recursive: true).then((file)async {
+        await file.writeAsBytes(await pdf.save());
+        print("saved");
+      });
 
 }
