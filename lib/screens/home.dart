@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hashd/model/capturePics.dart';
 import 'package:hashd/widgets/common_styles.dart';
+import 'package:hashd/widgets/weatherInfoView.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,149 +29,7 @@ class _HomePageState extends State<HomePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.all(8),
-                      child: Center(
-                        child: Card(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            // mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.album),
-                                title: Text(
-                                  "Notification 1",
-                                ),
-                                subtitle: Text("HIOasfh akdjsf adsufh aksdjf"),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    child: Text('Check Details'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                  TextButton(
-                                    child: Text('Delete'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 2,),
-                    Container(
-                      margin: EdgeInsets.all(8),
-                      child: Center(
-                        child: Card(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            // mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.album),
-                                title: Text(
-                                  "Notification 1",
-                                ),
-                                subtitle: Text("HIOasfh akdjsf adsufh aksdjf"),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    child: Text('Check Details'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                  TextButton(
-                                    child: Text('Delete'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 2,),
-                    Container(
-                      margin: EdgeInsets.all(8),
-                      child: Center(
-                        child: Card(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            // mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.album),
-                                title: Text(
-                                  "Notification 1",
-                                ),
-                                subtitle: Text("HIOasfh akdjsf adsufh aksdjf"),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    child: Text('Check Details'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                  TextButton(
-                                    child: Text('Delete'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 2,),
-                    Container(
-                      margin: EdgeInsets.all(8),
-                      child: Center(
-                        child: Card(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            // mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.album),
-                                title: Text(
-                                  "Notification 1",
-                                ),
-                                subtitle: Text("HIOasfh akdjsf adsufh aksdjf"),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    child: Text('Check Details'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                  TextButton(
-                                    child: Text('Delete'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    WeatherInfoView(),
                     SizedBox(height: 2,),
                     Container(
                       margin: EdgeInsets.all(8),
