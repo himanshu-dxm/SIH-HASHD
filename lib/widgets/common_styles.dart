@@ -58,11 +58,14 @@ class CommonStyles {
       // margin: EdgeInsets.only(left: 50,right: 50,top: 30),
       // width: 100,
       // height: 50,
-      width: MediaQuery.of(context).size.width*0.80,
+      width: MediaQuery.of(context).size.width*0.70,
       padding: EdgeInsets.symmetric(vertical: 18,),
       child: Center(
         child: Text(
           text.toUpperCase(),
+          style: TextStyle(
+            color: Colors.white
+          ),
           // style: GoogleFonts.lato(
           //     textStyle: TextStyle(
           //       fontSize: 18,
