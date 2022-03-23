@@ -23,8 +23,9 @@ environment:
 dependencies:
   http:
   firebase_messaging:
-  firebase_mlkit_language: 
+  learning_translate: ^0.0.4
   flutter_local_notifications:
+  text_to_speech: ^0.2.3
   pdf: ^3.4.2
   path_provider:
   image_picker: 
