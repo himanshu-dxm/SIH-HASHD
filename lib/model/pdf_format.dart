@@ -1,30 +1,30 @@
 // import 'package:flutter/cupertino.dart';
-// import 'package:pdf/pdf.dart';
-// import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-// import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
-class Title{
+class PDFTitle{
   final String title;
-  const Title({
+  const PDFTitle({
     required this.title,
   });
 }
 
 class Details{
   final String soil;
-  final String rainAvg;
+  final String rain_avg;
   final String crop;
-  final int noOfCases;
+  final int no_of_cases;
   final String location;
-  final int noOfImages;
+  final int no_of_images;
   const Details({
     required this.soil,
-    required this.rainAvg,
+    required this.rain_avg,
     required this.crop,
-    required this.noOfCases,
+    required this.no_of_cases,
     required this.location,
-    required this.noOfImages
+    required this.no_of_images
   });
 }
 class Id{
@@ -35,40 +35,41 @@ class Id{
     required this.time
   });
 }
-class ImagesUpload{
-//   meth()async{
-// var img = await ImagePicker().pickImage(source: ImageSource.camera);
-// var bytes = img?.readAsBytes();
-//   }
-  final List<dynamic> images;
-  const ImagesUpload({
-    required this.images,
-  });
-}
+// class Images_upload{
+// //   meth()async{
+// // var img = await ImagePicker().pickImage(source: ImageSource.camera);
+// // var bytes = img?.readAsBytes();
+// //   }
+//   final List<dynamic> images;
+//   const Images_upload({
+//     required this.images,
+//   });
+// }
 class Report{
-  static Widget buildTitle(Title title){
+  static Widget buildTitle(PDFTitle title){
     return Container(
       alignment:Alignment.center,
-      child: Text(title.toString()+" REPORT",style: TextStyle(fontBold: Font.timesBold())),
+      child: Text(title.title.toString()+" REPORT",style: TextStyle(fontBold: Font.timesBold())),
     );
   }
-  static Widget buildID(Title title,Id id){
+  static Widget buildID(PDFTitle title,Id id){
     return Container(
       child: Column(children: [
-        Text(title.toString()+" ID"+id.id.toString()),
+        Text(title.title.toString()+" ID"+id.id.toString()),
         Text("Date: "+id.time.toString())
       ])
     );
   }
   static Widget buildDetails(Details details){
     return Container(
+      alignment: Alignment.centerLeft,
       child: Column(children: [
         Text("CROP : "+details.crop),
         Text("SOIL : "+details.soil),
-        Text("AVERAGE RAINFALL(mm) : "+details.rainAvg),
+        Text("AVERAGE RAINFALL(mm) : "+details.rain_avg),
         Text("LOCATION : "+details.location),
-        Text("NUMBER OF CASES REPORTED IN THAT LOCATION : "+details.noOfCases.toString()),
-        Text("NUMBER OF IMAGES ATTACHED : "+details.noOfImages.toString()),
+        Text("NUMBER OF CASES REPORTED IN THAT LOCATION : "+details.no_of_cases.toString()),
+        Text("NUMBER OF IMAGES ATTACHED : "+details.no_of_images.toString()),
       ]),
     );
   }

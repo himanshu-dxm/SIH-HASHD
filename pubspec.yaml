@@ -22,7 +22,11 @@ environment:
 
 dependencies:
   http:
+  firebase_messaging:
+  firebase_mlkit_language: 
+  flutter_local_notifications:
   pdf: ^3.4.2
+  path_provider:
   image_picker: 
 #  google_fonts:
   cupertino_icons :
