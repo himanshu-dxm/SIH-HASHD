@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hashd/screens/home.dart';
+import 'package:hashd/screens/temp.dart';
 import 'package:hashd/widgets/common_styles.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,10 +18,19 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //
-      //   title: Center(child: Text("SIH HASHED")),
-      // ),
+      appBar: AppBar(
+        title: Center(child: Text("SIH HASHED")),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>TempPage()));
+          },
+          child: Container(
+            child: Icon(
+              Icons.add
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
