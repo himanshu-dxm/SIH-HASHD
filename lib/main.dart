@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hashd/screens/home.dart';
+import 'package:hashd/screens/login_page.dart';
 
 void main() {
   runApp(MyApp());

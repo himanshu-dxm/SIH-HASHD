@@ -1,8 +1,8 @@
 // import 'package:flutter/cupertino.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
+// import 'package:pdf/pdf.dart';
+// import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 
 class Title{
   final String title;
@@ -13,18 +13,18 @@ class Title{
 
 class Details{
   final String soil;
-  final String rain_avg;
+  final String rainAvg;
   final String crop;
-  final int no_of_cases;
+  final int noOfCases;
   final String location;
-  final int no_of_images;
+  final int noOfImages;
   const Details({
     required this.soil,
-    required this.rain_avg,
+    required this.rainAvg,
     required this.crop,
-    required this.no_of_cases,
+    required this.noOfCases,
     required this.location,
-    required this.no_of_images
+    required this.noOfImages
   });
 }
 class Id{
@@ -35,13 +35,13 @@ class Id{
     required this.time
   });
 }
-class Images_upload{
+class ImagesUpload{
 //   meth()async{
 // var img = await ImagePicker().pickImage(source: ImageSource.camera);
 // var bytes = img?.readAsBytes();
 //   }
   final List<dynamic> images;
-  const Images_upload({
+  const ImagesUpload({
     required this.images,
   });
 }
@@ -65,10 +65,10 @@ class Report{
       child: Column(children: [
         Text("CROP : "+details.crop),
         Text("SOIL : "+details.soil),
-        Text("AVERAGE RAINFALL(mm) : "+details.rain_avg),
+        Text("AVERAGE RAINFALL(mm) : "+details.rainAvg),
         Text("LOCATION : "+details.location),
-        Text("NUMBER OF CASES REPORTED IN THAT LOCATION : "+details.no_of_cases.toString()),
-        Text("NUMBER OF IMAGES ATTACHED : "+details.no_of_images.toString()),
+        Text("NUMBER OF CASES REPORTED IN THAT LOCATION : "+details.noOfCases.toString()),
+        Text("NUMBER OF IMAGES ATTACHED : "+details.noOfImages.toString()),
       ]),
     );
   }

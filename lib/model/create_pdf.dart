@@ -3,7 +3,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'pdf_format.dart';
 
-void generatePDF(Title title,Id id,Details details,Images_upload images){
+void generatePDF(Title title,Id id,Details details,ImagesUpload images){
   var pdf = new Document();
   //first page
   pdf.addPage(

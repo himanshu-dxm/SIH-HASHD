@@ -101,6 +101,8 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(height: 20,),
                             otpSent?GestureDetector(
                               onTap: () {
+                                //TODO : Send to home.dart
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
                                 setState(() {
                                   otpSent=false;
                                 });
