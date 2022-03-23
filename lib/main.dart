@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hashd/screens/home.dart';
+import 'package:hashd/screens/login_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.green,
       ),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
