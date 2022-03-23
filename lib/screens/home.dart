@@ -1,5 +1,7 @@
 import 'dart:ui';
-
+import '../model/create_pdf.dart';
+import '../model/pdf_format.dart';
+import '../model/capturePics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hashd/widgets/common_styles.dart';
@@ -89,10 +91,15 @@ class _HomePageState extends State<HomePage> {
                               decoration: CommonStyles.textFieldStyle("Enter OTP"),
                             ):
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async{
                                 setState(() {
                                   otpSent = true;
                                 });
+                                
+                                // //add my stuff
+                                // var images = await CapturePicture.getImages();
+                                // var ans = await CapturePicture.getData();
+                                // generatePDF(PDFTitle(title: "he"), Id(id: '123',time:DateTime.now().toString()), Details(crop: "CROP",soil: "SOIL",rain_avg: "RAIN AVG",no_of_cases: 2,no_of_images: 2,location: "LOCATION"), images);
                               },
                               child: Container(
                                 child: CommonStyles.roundButton(context, "Send OTP"),
