@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hashd/model/weather_data.dart';
 
-class WeatherInfoView extends StatelessWidget {
+class WeatherInfoView extends StatefulWidget {
   const WeatherInfoView({Key? key}) : super(key: key);
+
+  @override
+  _WeatherInfoViewState createState() => _WeatherInfoViewState();
+}
+
+class _WeatherInfoViewState extends State<WeatherInfoView> {
+  WeatherLocations weather=WeatherData.weather;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +26,15 @@ class WeatherInfoView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             // mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
+            children: [
               ListTile(
-                leading: Icon(Icons.album),
+                // leading: Icon(Icons.album),
                 title: Text(
-                  "Notification 1",
+                  weather.city,
                 ),
-                subtitle: Text("HIOasfh akdjsf adsufh aksdjf"),
+                subtitle: Text(
+                  weather.weatherType,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

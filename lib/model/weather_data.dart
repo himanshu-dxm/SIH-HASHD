@@ -2,6 +2,13 @@ import 'dart:convert';
 import 'getCity.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+
+class WeatherData {
+  static late WeatherLocations weather;
+  static void getWeather() async {
+    weather = await fetchWeather();
+  }
+}
 class WeatherLocations {
 
 
@@ -50,7 +57,7 @@ class WeatherLocations {
   }
 }
 
-Future<WeatherLocations?> fetchWeather() async {
+Future<WeatherLocations> fetchWeather() async {
   WeatherLocations weather;
   String city = await getCity();
   String apiKey = "f74917363ea01c303f930d140c4833b1";
@@ -69,6 +76,16 @@ Future<WeatherLocations?> fetchWeather() async {
   } on Exception catch (e) {
     // TODO
     print(e.toString());
-    return null;
+    return new WeatherLocations(cloud: 0,
+        city: city, dateTime: "",
+        temperature: "",
+        weatherType: "",
+        iconUrl: "",
+        wind: 0,
+        pressure: 0,
+        humidity: 0,
+        latitude: 0,
+        longitude: 0
+    );
   }
 }
