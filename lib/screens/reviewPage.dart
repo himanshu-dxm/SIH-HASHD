@@ -85,7 +85,7 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height*0.9,
           child: Stack(
             children: [
 
@@ -125,6 +125,7 @@ class MyListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       children: [
         // Image Container
         Container(
@@ -209,7 +210,7 @@ class MyListView extends StatelessWidget {
         ),
 
         // Contact Expert
-        CommonStyles.roundButton(context, "Contact Expert"),
+        CommonStyles.roundButton(context, "Contact Expert!"),
       ],
     );
   }
