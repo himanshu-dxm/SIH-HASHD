@@ -1,8 +1,11 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:hashd/model/language.dart';
 import 'package:hashd/model/pdf_format.dart';
 import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/common_styles.dart';
+import 'package:intl/intl.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({Key? key}) : super(key: key);
@@ -14,38 +17,59 @@ class ReviewPage extends StatefulWidget {
 class _ReviewPageState extends State<ReviewPage> {
   bool isLoading = false;
   late Predictions preds;
+  late String cropName;
+  late String diseaseDetected;
+  late String remedy;
 
   @override
   void initState() {
     super.initState();
     preds = Prediction.preds;
+    cropName = preds.plantName;
+    diseaseDetected = preds.disease;
+    remedy = preds.remedy;
+  }
+
+  void translate() async {
+    var a = await LanguageML.convertLanguage('hindi', remedy);
+    var b = await LanguageML.convertLanguage('hindi', cropName);
+    var c = await LanguageML.convertLanguage('hindi', diseaseDetected);
+    setState(() {
+      remedy = a;
+      cropName = b;
+      diseaseDetected = c;
+    });
+  }
+
+  void speakUp() {
+    LanguageML.speechOutput(remedy, 'hi');
   }
 
   @override
   Widget build(BuildContext context) {
-    var remedy = preds.remedy;
+
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         actions: [
           GestureDetector(
-            onTap: () async{
+            onTap: () {
               // TODO: Translate
-              var ans = await LanguageML.convertLanguage('hindi', preds.remedy);
-              setState(() {
-                remedy=ans;
-              });
+              translate();
+              setState(() {});
             },
             child: Container(
+              padding: EdgeInsets.all(8),
                 child: Icon(Icons.translate),
             ),
           ),
 
           GestureDetector(
             onTap: () {
-
+              speakUp();
             },
               child: Container(
+                padding: EdgeInsets.all(8),
                   child: Icon(Icons.keyboard_voice)
               )
           ),
@@ -72,11 +96,12 @@ class _ReviewPageState extends State<ReviewPage> {
                 height: double.infinity,
                 repeat: ImageRepeat.repeat,
               ),
+
               Container(
                 padding: EdgeInsets.all(8),
                 margin: EdgeInsets.all(8),
                 // height: MediaQuery.of(context).size.height,
-                  child: MyListView(preds: preds),
+                  child: MyListView(cropName: cropName,diseaseDetected: diseaseDetected,remedy: remedy,),
               ),
             ]
           ),
@@ -86,10 +111,15 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 }
 
+
 class MyListView extends StatelessWidget {
-  late Predictions preds;
-  MyListView({required Predictions preds}) {
-    this.preds = preds;
+  late String cropName;
+  late String diseaseDetected;
+  late String remedy;
+  MyListView({required String cropName,required String diseaseDetected,required String remedy}) {
+    this.remedy = remedy;
+    this.cropName = cropName;
+    this.diseaseDetected = diseaseDetected;
   }
 
   @override
@@ -128,8 +158,8 @@ class MyListView extends StatelessWidget {
               ListTile(
                 // leading: Icon(Icons.album),
                 title: Text(
-                  "Crop: "+preds.plantName+
-                      "\nDisease Detected: "+preds.disease,
+                  "Crop: "+cropName+
+                      "\nDisease Detected: "+diseaseDetected,
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold
@@ -169,7 +199,7 @@ class MyListView extends StatelessWidget {
               ),
               padding: EdgeInsets.all(8),
               child: Text(
-                  "Solution: "+preds.remedy,
+                  "Solution: "+remedy,
                 style: TextStyle(
                   fontSize: 18
                 ),
