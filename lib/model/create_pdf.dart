@@ -6,7 +6,7 @@ import 'package:pdf/widgets.dart';
 import 'pdf_format.dart';
 import 'package:path_provider/path_provider.dart';
 
-void generatePDF(PDFTitle title,Id id,Details details,images)async{
+void generatePDF(PDFTitle title,Id id,Details details,images,Predictions pred)async{
   try{
   var pdf = new Document();
   //first page
@@ -22,6 +22,8 @@ void generatePDF(PDFTitle title,Id id,Details details,images)async{
         Report.buildID(title, id),
         Container(height: 100),
         Report.buildDetails(details),
+        Container(height: 100),
+        Report.buildPredictions(pred)
       ];
     })
   );
@@ -56,7 +58,7 @@ void generatePDF(PDFTitle title,Id id,Details details,images)async{
     );
   }
   var filePath = await getExternalStorageDirectory();
-await File(filePath!.path+"/new.pdf").create(recursive: true).then((file)async {
+await File(filePath!.path+"/Report_${id.id.toString()}.pdf").create(recursive: true).then((file)async {
         await file.writeAsBytes(await pdf.save());
         print("saved");
       });

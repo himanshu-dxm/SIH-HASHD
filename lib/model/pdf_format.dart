@@ -11,6 +11,18 @@ class PDFTitle{
   });
 }
 
+class Predictions{
+  final String plantName;
+  final String disease;
+  final String remedy;
+  final String recommendations;
+  const Predictions({
+    required this.disease,
+    required this.plantName,
+    required this.remedy,
+    required this.recommendations
+  });
+}
 class Details{
   final String soil;
   final String rain_avg;
@@ -62,7 +74,6 @@ class Report{
   }
   static Widget buildDetails(Details details){
     return Container(
-      alignment: Alignment.centerLeft,
       child: Column(children: [
         Text("CROP : "+details.crop),
         Text("SOIL : "+details.soil),
@@ -73,5 +84,13 @@ class Report{
       ]),
     );
   }
-
+  static Widget buildPredictions(Predictions pred){
+    return Container(
+      child: Column(children: [
+        Text("Plant : "+pred.plantName),
+        Text("Disease : "+pred.disease),
+        Text("Remedy : "+pred.remedy),
+      ])
+    );
+  } 
 }

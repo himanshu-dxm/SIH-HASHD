@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hashd/model/capturePics.dart';
+import 'package:hashd/model/create_pdf.dart';
+import 'package:hashd/model/getCity.dart';
+import 'package:hashd/model/getSoilData.dart';
+import 'package:hashd/model/pdf_format.dart';
 import 'package:hashd/screens/reviewPage.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
 
@@ -143,9 +147,22 @@ class _HomePageState extends State<HomePage> {
                               numImages = 0;
                               isLoading = true;
                             });
-                            CapturePicture.images.clear();
                             print("Done Capturing");
-                            var x=await CapturePicture.getData();
+                            //get predictions and pass "pred" to next page
+                            var images = await CapturePicture.getImages();
+                            var predictions =await CapturePicture.getData();
+                            var soildata = await APIDATA.getSoildata();
+                            Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:soildata.recommendations);
+                            //Details
+                            var city = await getCity();
+                            // Details details = Details(soil: soildata.soil, rain_avg: rain_avg, crop: predictions.name, no_of_cases: no_of_cases, location: city, no_of_images: no_of_images)
+                            //store images to database
+
+                            //generate pdf
+                            // generatePDF(title, id, details, images, pred);
+                            //clear images
+                            // CapturePicture.images.clear();
+                            
                             setState(() {
                               isLoading = false;
                             });

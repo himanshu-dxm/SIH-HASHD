@@ -1,0 +1,44 @@
+[
+    {
+        "name": "ALLUVIAL SOIL",
+        "Suitablecrop": ["Cotton", "wheat", "sorghum", "bajra", "maize", "barley", "jute", "tobacco", "green","black gram"],
+        "States": ["gujarat",  "punjab", "haryana", "uttarpradesh", "bihar", "jharkhand"],
+        "Rich-in":["Potash" , "Lime"],
+        "Lack-in":["Nitrogen", "Phosphorous"]
+    },
+    {
+        "name": "BLACK SOIL",
+        "Suitablecrop": ["Cotton", "Wheat", "cereals", "rice", "jowar", "sugarcane", "linseed", "sunflower", "groundnut", "tobacco", "millets", "citrus fruits", "oilseed"],
+        "States":["maharashtra", "madhya pradesh", "gujarat", "andhra pradesh","tamil nadu","telangana"],
+        "Rich-in": ["Lime", "Iron", "Magnesia","Alumina", "Potash"],
+        "Lack-in": ["Phosphorous", "Nitrogen" ,"Organic matter"]
+    },
+    {
+        "name": "RED AND YELLOW SOIL",
+        "Suitablecrop": ["Groundnut", "potato", "maize/corn", "rice", "ragi", "wheat", "millets", "pulses", "sugarcane", "oilseeds", "citrus", "orange", "mango"],
+        "States": ["orissa","chattisgarh","karnataka"],
+        "Rich-in": ["Iron","Potash"],
+        "Lack-in": ["Nitrogen", "Phosphorous","Humus"]
+    },
+    {
+        "name": "LATERITE SOIL",
+        "Suitablecrop":["Cotton", "wheat", "rice", "pulses", "rubber", "tea", "coffee", "coconut", "cashews"],
+        "States": ["karnataka", "kerala", "tamilnadu", "madhya pradesh", "assam","orissa"],
+        "Rich-in":["Iron oxide", "Potash"],
+        "Lack-in":["Organic matter", "Nitrogen", "Phosphate" ,"Calcium"]
+    },
+    {
+        "name": "MOUNTAIN AND FOREST SOIL",
+        "Suitablecrop":["Wheat", "barley", "maize", "tea", "coffee", "spices"],
+        "States": ["rajasthan","gujarat","punjab"],
+        "Rich-in": ["Phosphate"],
+        "Lack-in": ["Humus", "Nitrogen"]
+    },
+    {
+        "name": "DESERT SOIL",
+        "Suitablecrop":["barley", "millet"],
+        "States":["gujarat","punjab","west bengal","haryana"],
+        "Rich-in":["Sodium", "Potassium", "Magnesium"],
+        "Lack-in":["Nitrogen","Calcium"]
+    }
+]
