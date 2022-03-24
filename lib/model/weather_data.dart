@@ -2,6 +2,13 @@ import 'dart:convert';
 import 'getCity.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+
+class WeatherData {
+  static late WeatherLocations weather;
+  static void getWeather() async {
+    weather = await fetchWeather();
+  }
+}
 class WeatherLocations {
 
 

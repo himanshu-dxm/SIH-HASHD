@@ -9,17 +9,14 @@ class WeatherInfoView extends StatefulWidget {
 }
 
 class _WeatherInfoViewState extends State<WeatherInfoView> {
-  WeatherLocations? weather;
+  WeatherLocations weather=WeatherData.weather;
 
   @override
   void initState() {
     super.initState();
-    getWeather();
   }
 
-  void getWeather() async {
-    weather = await fetchWeather();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,10 +30,10 @@ class _WeatherInfoViewState extends State<WeatherInfoView> {
               ListTile(
                 // leading: Icon(Icons.album),
                 title: Text(
-                  weather!.city,
+                  weather.city,
                 ),
                 subtitle: Text(
-                  weather!.weatherType,
+                  weather.weatherType,
                 ),
               ),
               Row(
