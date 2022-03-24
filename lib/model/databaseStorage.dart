@@ -2,17 +2,20 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hashd/model/capturePics.dart';
 import 'storageModels.dart';
 
 class Database{
   static Future<String> getExpert(String crop)async{
      try {
+       print(crop);
        await FirebaseFirestore.instance.collection('experts').where('crop',isEqualTo: crop.toLowerCase().toString()).get().then((value) {
         return(value.docs.first.get('EID'));
            });
-           return '';
+           return 'no expert';
      } on Exception catch (e) {
        // TODO
+       print('didnt get expert error');
        return(e.toString());
      }
     
@@ -41,16 +44,24 @@ class Database{
     });
     print("data pushed to db\n\n");
   }
-  static Future<String> pushImages(List<String>filepaths,String RID)async{
-    List<String> urls=[];
-    for (var i = 0;i<filepaths.length;i++) {
-      await FirebaseStorage.instance.ref(RID).child(i.toString()).putFile(File(filepaths[i]));
-      urls.add(await FirebaseStorage.instance.ref(RID).child(i.toString()).getDownloadURL());
+  static Future<String> pushImages(String RID)async{
+    try {
+      var filepaths = CapturePicture.filepaths;
+      List<String> urls=[];
+      for (var i = 0;i<filepaths.length;i++) {
+        var file = File(filepaths[i]);
+         await FirebaseStorage.instance.ref().child(RID+'/'+i.toString()+'.jpg').putFile(file);
+              urls.add(await FirebaseStorage.instance.ref().child(RID+'/'+i.toString()+'.jpg').getDownloadURL());
+      }
+      print("imags pushed\n\n");
+      print(json.encode(urls));
+      print('\n\n');
+      return json.encode(urls);
+    } on Exception catch (e) {
+      // TODO
+      print(e.toString());
+      return '';
     }
-    print("imags pushed\n\n");
-    print(json.encode(urls));
-    print('\n\n');
-    return json.encode(urls);
   }
   // static Future<String> getNoOFCases()
 }

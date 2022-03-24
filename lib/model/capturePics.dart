@@ -8,19 +8,27 @@ import 'package:image_picker/image_picker.dart';
 class CapturePicture{
   static List<Uint8List> images = [];
   static List<String> filepaths = [];
-  static Future<List<dynamic>> getImages()async{
+  static Future getImages()async{
     var filePath = await getExternalStorageDirectory();
     try{
       print('taking images');
         await ImagePicker().pickImage(source: ImageSource.camera).then((value)async {
-          images.add(await value!.readAsBytes());
-          File(filePath.toString()+"/${images.length}.jpg").writeAsBytesSync(await value.readAsBytes());
-          filepaths.add(filePath.toString()+"/${images.length}.jpg");
+          print("tool image");
+          var b = await value!.readAsBytes();
+          images.add(b);
+          // await File(filePath.toString()+"/i/${images.length}image.png").create(recursive: true).then((value)async{
+          //   await value.writeAsBytes(b).then((value) {
+          //             filepaths.add(filePath.toString()+"/i/${images.length}image.png");
+          //           print("file added");
+          //           });
+          // });
+          await value.saveTo(filePath!.path.toString()+"/${images.length}image.jpg");
+          filepaths.add(filePath.path.toString()+"/${images.length}image.jpg");
+          print("file added");
+          print("filepaths"+filepaths.toString());
         });
-      print("filepaths"+filepaths.toString());
-      return images;
     }catch(e){
-      return [];
+      print(e.toString());
     }
   }
   static Future<dynamic> getData()async{

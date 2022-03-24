@@ -2,13 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 //https://github.com/nandakishormpai/Plant_Disease_Detector
 //thanks vroooos 
-Future getSuggestions(imgdata)async {
+Future<dynamic> getSuggestions(imgdata)async {
   try{
-  // var bytes = (Image.asset('download.jpg')).image;
   print("in");
-// ByteData bytes = await rootBundle.load("assets/images/download.jpg"); //load sound from assets
-//   final soundbytes = bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-//   var imgdata=base64Encode(soundbytes);
   final response = await http.post(
     Uri.parse("https://plant-disease-detector-pytorch.herokuapp.com/"),
     headers: <String, String>{
@@ -18,24 +14,30 @@ Future getSuggestions(imgdata)async {
       'image': base64Encode(imgdata),
     }),
   );
-  if (response.statusCode == 200) {
+  if (response.statusCode != 201) {
+    print('in if');
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
-    print(jsonDecode(response.body).toString());
-    return jsonDecode(response.body).toString();
+    // print(jsonDecode(response.body).toString());
+    var a = json.decode(response.body);
+    var as = Map<String,dynamic>.from(a);
+    Map r={};
+    for (var i in as.entries){
+      r[i.key]=i.value.toString();
+    }
+    return r;
     //respons type:
     //disease,plant,remedy
     
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    // throw Exception('Failed to create album.').toString();
-    print('else');
-    return "";
+    print('in else');
+    return {'plant':'tomato','disease':'late','remedy':'remdiy is'};
   }}
   catch(e){
-    print(e);
-    return e.toString();
+    print('in error'+e.toString());
+    return {'plant':'tomato','disease':'late','remedy':'remdiy is'};
   }
 
 }
