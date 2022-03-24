@@ -8,6 +8,7 @@ import 'package:hashd/model/storageModels.dart';
 import 'package:hashd/model/weather_data.dart';
 
 class Prediction {
+  static var preds;
   static void getPredictions() async {
     //get predictions and pass "pred" to next page
     var RID = DateTime.now().millisecondsSinceEpoch.toString();
@@ -15,9 +16,11 @@ class Prediction {
     var filepaths = CapturePicture.getFilePaths();
     print(filepaths);
     var predictions =await CapturePicture.getData();
+
     print((predictions).toString());
     // var soildata = await APIDATA.getSoildata();
     Predictions pred = Predictions(disease: predictions['disease'], plantName: predictions['plant'], remedy: predictions['remedy'],recommendations:"soildata.recommendations");
+    preds=pred;
     // //Details
     Details details = Details(soil: "soildata.soil", humidity: WeatherData.weather.humidity.toString(), crop: predictions['plant'], no_of_cases: 1, location: WeatherData.weather.city, no_of_images: CapturePicture.images.length);
     // //store images to database
