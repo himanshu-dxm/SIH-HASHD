@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'getCity.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 class WeatherLocations {
@@ -50,9 +50,9 @@ class WeatherLocations {
   }
 }
 
-Future<WeatherLocations?> fetchWeather(String city) async {
+Future<WeatherLocations?> fetchWeather() async {
   WeatherLocations weather;
-  // String city = "Ranchi";
+  String city = await getCity();
   String apiKey = "f74917363ea01c303f930d140c4833b1";
   var url = "https://api.openweathermap.org/data/2.5/weather?q=$city,in&appid=$apiKey";
 
