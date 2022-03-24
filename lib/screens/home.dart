@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hashd/model/capturePics.dart';
 import 'package:hashd/model/create_pdf.dart';
+import 'package:hashd/model/databaseStorage.dart';
 import 'package:hashd/model/getCity.dart';
 import 'package:hashd/model/getSoilData.dart';
 import 'package:hashd/model/pdf_format.dart';
+import 'package:hashd/model/storageModels.dart';
+import 'package:hashd/model/weather_data.dart';
 import 'package:hashd/screens/reviewPage.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -154,19 +156,24 @@ class _HomePageState extends State<HomePage> {
                             });
                             print("Done Capturing");
                             //get predictions and pass "pred" to next page
+                            var RID = DateTime.now().toString();
                             var images = await CapturePicture.getImages();
+                            var filepaths = CapturePicture.getFilePaths();
                             var predictions =await CapturePicture.getData();
                             var soildata = await APIDATA.getSoildata();
                             Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:soildata.recommendations);
                             //Details
-                            var city = await getCity();
-                            // Details details = Details(soil: soildata.soil, rain_avg: rain_avg, crop: predictions.name, no_of_cases: no_of_cases, location: city, no_of_images: no_of_images)
+                            // Details details = Details(soil: soildata.soil, humidity: WeatherData.weather.humidity.toString(), crop: predictions.name, no_of_cases: 1, location: WeatherData.weather.city, no_of_images: images.length);
                             //store images to database
-
+                            // var urls = await Database.pushImages(filepaths, RID);
+                            // var EID = await Database.getExpert(predictions.name);
+                            // ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: crop, humidity: humidity, location: location, lock: '0', no_of_cases: no_of_cases, no_of_images: no_of_images, soil: soil);
+                            // Database.pushdata(RID, report, urls);
                             //generate pdf
                             // generatePDF(title, id, details, images, pred);
                             //clear images
                             // CapturePicture.images.clear();
+                            // CapturePicture.filepaths.clear();
                             
                             setState(() {
                               isLoading = false;
