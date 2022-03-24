@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isDeleted = true;
+  bool isDeleted = false;
   int numImages = 0;
   bool isLoading = false;
   @override
@@ -24,7 +24,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("HASHD"),
+        title: Text(
+            "planet!",
+          style: TextStyle(
+            fontSize: 40
+          ),
+        ),
       ),
       body: !isLoading?Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                                 title: Text(
                                   "Notification 1",
                                 ),
-                                subtitle: Text("HIOasfh akdjsf adsufh aksdjf"),
+                                subtitle: Text("Description"),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -151,11 +156,12 @@ class _HomePageState extends State<HomePage> {
                             //get predictions and pass "pred" to next page
                             var images = await CapturePicture.getImages();
                             var predictions =await CapturePicture.getData();
-                            var soildata = await APIDATA.getSoildata();
-                            Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:soildata.recommendations);
+                            var soilData = await APIDATA.getSoildata();
+                            Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:soilData.recommendations);
+                            print(pred);
                             //Details
                             var city = await getCity();
-                            // Details details = Details(soil: soildata.soil, rain_avg: rain_avg, crop: predictions.name, no_of_cases: no_of_cases, location: city, no_of_images: no_of_images)
+                            // Details details = Details(soil: soilData.soil, rain_avg: rain_avg, crop: predictions.name, no_of_cases: no_of_cases, location: city, no_of_images: no_of_images)
                             //store images to database
 
                             //generate pdf
