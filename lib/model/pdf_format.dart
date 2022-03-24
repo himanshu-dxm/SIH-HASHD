@@ -25,14 +25,14 @@ class Predictions{
 }
 class Details{
   final String soil;
-  final String rain_avg;
+  final String humidity;
   final String crop;
   final int no_of_cases;
   final String location;
   final int no_of_images;
   const Details({
     required this.soil,
-    required this.rain_avg,
+    required this.humidity,
     required this.crop,
     required this.no_of_cases,
     required this.location,
@@ -77,7 +77,7 @@ class Report{
       child: Column(children: [
         Text("CROP : "+details.crop),
         Text("SOIL : "+details.soil),
-        Text("AVERAGE RAINFALL(mm) : "+details.rain_avg),
+        Text("HUMIDITY : "+details.humidity),
         Text("LOCATION : "+details.location),
         Text("NUMBER OF CASES REPORTED IN THAT LOCATION : "+details.no_of_cases.toString()),
         Text("NUMBER OF IMAGES ATTACHED : "+details.no_of_images.toString()),
