@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-            "planet!",
+            "H",
           style: TextStyle(
             fontSize: 40
           ),
@@ -156,12 +156,11 @@ class _HomePageState extends State<HomePage> {
                             //get predictions and pass "pred" to next page
                             var images = await CapturePicture.getImages();
                             var predictions =await CapturePicture.getData();
-                            var soilData = await APIDATA.getSoildata();
-                            Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:soilData.recommendations);
-                            print(pred);
+                            var soildata = await APIDATA.getSoildata();
+                            Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:soildata.recommendations);
                             //Details
                             var city = await getCity();
-                            // Details details = Details(soil: soilData.soil, rain_avg: rain_avg, crop: predictions.name, no_of_cases: no_of_cases, location: city, no_of_images: no_of_images)
+                            // Details details = Details(soil: soildata.soil, rain_avg: rain_avg, crop: predictions.name, no_of_cases: no_of_cases, location: city, no_of_images: no_of_images)
                             //store images to database
 
                             //generate pdf
