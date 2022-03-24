@@ -104,9 +104,8 @@ class _HomePageState extends State<HomePage> {
                     var img=await CapturePicture.getImages();
                     setState(() {
                       isLoading = false;
-                      numImages = img.length;
+                      numImages = CapturePicture.images.length;
                     });
-                    print(img.length);
                   },
                     label: const Text(
                       "CAPTURE"
@@ -132,9 +131,8 @@ class _HomePageState extends State<HomePage> {
                             var img=await CapturePicture.getImages();
                             setState(() {
                               isLoading = false;
-                              numImages = img.length;
+                              numImages = CapturePicture.images.length;
                             });
-                            print(img.length);
                           },
                           label: Text(
                             "Add ("+numImages.toString()+")"
@@ -146,29 +144,33 @@ class _HomePageState extends State<HomePage> {
                       child: FloatingActionButton.extended(
                           onPressed: () async {
                             setState(() {
-                              numImages = 0;
                               isLoading = true;
+                              numImages = 0;
                             });
-                            print("Done Capturing");
                             //get predictions and pass "pred" to next page
                             var RID = DateTime.now().toString();
+                            print("RId"+RID);
                             var images = await CapturePicture.getImages();
                             var filepaths = CapturePicture.getFilePaths();
                             var predictions =await CapturePicture.getData();
-                            var soildata = await APIDATA.getSoildata();
-                            Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:soildata.recommendations);
+                            // var soildata = await APIDATA.getSoildata();
+                            Predictions pred = Predictions(disease: predictions.disease, plantName: predictions.name, remedy: predictions.remedy,recommendations:"soildata.recommendations");
                             //Details
-                            // Details details = Details(soil: soildata.soil, humidity: WeatherData.weather.humidity.toString(), crop: predictions.name, no_of_cases: 1, location: WeatherData.weather.city, no_of_images: images.length);
+                            Details details = Details(soil: "soildata.soil", humidity: WeatherData.weather.humidity.toString(), crop: predictions.name, no_of_cases: 1, location: WeatherData.weather.city, no_of_images: images.length);
                             //store images to database
-                            // var urls = await Database.pushImages(filepaths, RID);
-                            // var EID = await Database.getExpert(predictions.name);
-                            // ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: crop, humidity: humidity, location: location, lock: '0', no_of_cases: no_of_cases, no_of_images: no_of_images, soil: soil);
-                            // Database.pushdata(RID, report, urls);
+                            var urls = await Database.pushImages(filepaths, RID);
+                            var EID = await Database.getExpert(predictions.name);
+                            String no_of_cases = '0';
+                            ReportFormat report = ReportFormat(UID: 'UID', EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil);
+                            Database.pushdata(RID, report, urls);
                             //generate pdf
-                            // generatePDF(title, id, details, images, pred);
+                            generatePDF(PDFTitle(title: 'Request'),Id(id:RID,time:DateTime.now().toString()) , details, images, pred);
                             //clear images
                             // CapturePicture.images.clear();
                             // CapturePicture.filepaths.clear();
+                            // print('soildata: '+soildata.toString());
+                            print('pred'+pred.toString());
+                            print("report"+report.toString());
                             
                             setState(() {
                               isLoading = false;
