@@ -19,15 +19,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff587308),
         title: Center(child: Text("SIH HASHED")),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>TempPage()));
           },
           child: Container(
-            child: Icon(
-              Icons.add
-            ),
+            child: Image.asset(
+                "assets/images/logo.jpeg",
+              width: 100,
+              height: 100,
+            )
           ),
         ),
       ),
