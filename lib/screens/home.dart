@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hashd/model/capturePics.dart';
-import 'package:hashd/model/create_pdf.dart';
-import 'package:hashd/model/databaseStorage.dart';
-import 'package:hashd/model/getCity.dart';
-import 'package:hashd/model/getSoilData.dart';
-import 'package:hashd/model/pdf_format.dart';
-import 'package:hashd/model/storageModels.dart';
-import 'package:hashd/model/weather_data.dart';
 import 'package:hashd/screens/reviewPage.dart';
-import 'package:hashd/srvices/Predic.dart';
+import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
