@@ -14,7 +14,7 @@ class TempPage extends StatelessWidget {
         centerTitle: true,
         title: Text("For IMSH"),
       ),
-        body: DatabaseData.notif()
+        body: DatabaseData.notif(context)
     );
   }
 }

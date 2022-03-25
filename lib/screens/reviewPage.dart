@@ -288,7 +288,7 @@ class MyListView extends StatelessWidget {
           ),
         ),
 
-        // // Predictions
+        // Predictions
         Container(
           height: 350,
 
@@ -333,6 +333,145 @@ class MyListView extends StatelessWidget {
             ),
           ),
         ),
+
+        // Message
+        Container(
+          height: 350,
+
+          margin: EdgeInsets.all(8),
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffb7c881),
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: Colors.white),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.8),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0,3),
+                    )
+                  ]
+              ),
+              padding: EdgeInsets.all(8),
+              // child: Text(
+              //   "Solution :"+remedy,
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //   ),
+              // ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      "Message : ",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    StringList(remedyList),
+                  ],
+                ),
+                physics: ScrollPhysics(),
+              ),
+            ),
+          ),
+        ),
+
+        //Products
+        Container(
+          height: 350,
+
+          margin: EdgeInsets.all(8),
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffb7c881),
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: Colors.white),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.8),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0,3),
+                    )
+                  ]
+              ),
+              padding: EdgeInsets.all(8),
+              // child: Text(
+              //   "Solution :"+remedy,
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //   ),
+              // ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      "Products : ",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    StringList(remedyList),
+                  ],
+                ),
+                physics: ScrollPhysics(),
+              ),
+            ),
+          ),
+        ),
+
+        // Links
+        Container(
+          height: 350,
+
+          margin: EdgeInsets.all(8),
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffb7c881),
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: Colors.white),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.8),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0,3),
+                    )
+                  ]
+              ),
+              padding: EdgeInsets.all(8),
+              // child: Text(
+              //   "Solution :"+remedy,
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //   ),
+              // ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      "Links : ",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    StringList(remedyList),
+                  ],
+                ),
+                physics: ScrollPhysics(),
+              ),
+            ),
+          ),
+        ),
+
 
         // Contact Expert
         CommonStyles.roundButton(context, "Contact Expert!"),
