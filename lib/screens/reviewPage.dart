@@ -165,6 +165,25 @@ class _ReviewPageState extends State<ReviewPage> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 24,),
+                  GestureDetector(
+                    onTap: () async {
+                      // TODO: Help page redirect
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.help_outline_outlined,size: 48,),
+                          SizedBox(width: 8,),
+                          Text("Govt. Aids",style: TextStyle(
+                              fontSize: 24
+                          ),),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],

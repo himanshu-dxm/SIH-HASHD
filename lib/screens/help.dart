@@ -24,7 +24,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hashd/model/maps.dart';
-class GovMissions{
+
+class GovMissions {
   static List<String> mission = [
     'Farmers Portal by Govt Of India',
     'Paramparagat Krishi Vikas Yojana (PKVY)',
@@ -46,12 +47,13 @@ class GovMissions{
     'Under this scheme, 100 percent assistance is provided to state government, government agencies for setting up of mechanised fruit and vegetable market waste, agro waste compost production unit up to a maximum limit of Rs 190 lakh per unit (3000 Total Per Annum TPA capacity). Similarly, for individuals and private agencies assistance up to 33 percent of cost limit to Rs 63 lakh per unit as capital investment is provided.',
     'Under NFSM, financial assistance is provided for promotion of bio-fertiliser (Rhizobium/PSB) at 50 percent of the cost limited to Rs 300 per hectare.'
   ];
-  static Future<bool> callHelpline(String number)async{
-    try{
-      print("calling number "+number);
-    await FlutterPhoneDirectCaller.callNumber(number);
-    return true;
-    }catch(e){
+
+  static Future<bool> callHelpline(String number) async {
+    try {
+      print("calling number " + number);
+      await FlutterPhoneDirectCaller.callNumber(number);
+      return true;
+    } catch (e) {
       print('cannot call');
       return false;
     }
@@ -65,59 +67,88 @@ class HelpPage extends StatefulWidget {
   _HelpPageState createState() => _HelpPageState();
 }
 
-class _HelpPageState extends State<HelpPage>{
-
+class _HelpPageState extends State<HelpPage> {
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff587308),
-        centerTitle: true,
-        title: Text(
-            "Help",
-          style: TextStyle(
-            fontSize: 40
+    return Scaffold(
+        appBar: AppBar(
+          leading: GestureDetector(
+            child: Icon(Icons.arrow_back_ios),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          backgroundColor: Color(0xff587308),
+          centerTitle: true,
+          title: Text(
+            "Info",
+            style: TextStyle(fontSize: 40),
           ),
         ),
-      ),
-      body: ListView.builder(itemBuilder: (ctx,index){
-        return Container(
-          width: double.infinity,
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-                                color: Colors.white,
-                                // borderRadius: BorderRadius.circular(40),
-                                border: Border.all(color: Colors.white),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.8),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: Offset(0,3),
-                                  )
-                                ]
+        body: Container(
+          height: double.infinity,
+          child: ListView.builder(
+            itemBuilder: (ctx, index) {
+              return Container(
+                // width: double.infinity,
+                margin: EdgeInsets.all(6),
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.8),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                      )
+                    ]),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          child: Flexible(
+                            child: Text(
+                                GovMissions.mission[index],
+                                maxLines: 5,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500
+                              ),
                             ),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  child:Text(GovMissions.mission[index],overflow: TextOverflow.ellipsis,maxLines: 2),
+                          ),
+                        ),
+                        Container(
+                          child: GestureDetector(
+                              onTap: () async {
+                                WebView.openLink(GovMissions.urls[index]);
+                              },
+                              child: Container(
+                                child: Icon(Icons.open_in_new),
+                              )
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 6,),
+                    Text(
+                        GovMissions.desc[index],
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-              child:ElevatedButton(onPressed: ()async{
-              WebView.openLink(GovMissions.urls[index]);
-            }, child:Text('Open')),)
-              ],
-            ),
-            
-            
-            Text(GovMissions.desc[index]),
-          ],),
-        );
-      },itemCount: GovMissions.desc.length,)
-    );
+              );
+            },
+            itemCount: GovMissions.desc.length,
+          ),
+        ));
   }
 }
 /*
@@ -159,7 +190,7 @@ SingleChildScrollView(
                                       TextButton(
                                         child: Text('Delete'),
                                         onPressed: () {
-                                          
+
                                         },
                                       ),
                                       const SizedBox(width: 8),
