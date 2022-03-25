@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:hashd/model/User.dart';
 import 'package:hashd/model/capturePics.dart';
 import 'package:hashd/model/create_pdf.dart';
 import 'package:hashd/model/databaseStorage.dart';
@@ -12,6 +13,7 @@ class Prediction {
   static var preds;
   static Future<bool> getPredictions() async {
     try{    //get predictions and pass "pred" to next page
+    var UID = MyUser.UID;
     var RID = DateTime.now().millisecondsSinceEpoch.toString();
     print("RId"+RID);
     var filepaths = CapturePicture.getFilePaths();
@@ -28,7 +30,7 @@ class Prediction {
     var EID = await Database.getExpert(predictions['plant'].toString());
     // print(EID);
     String no_of_cases = '0';//TODO
-    ReportFormat report = ReportFormat(UID: 'UID', EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil);
+    ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil);
     var urls = await Database.pushImages(RID);
     Database.pushdata(RID, report, urls);
     //generate pdf
