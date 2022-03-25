@@ -2,7 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hashd/model/User.dart';
+import 'package:hashd/model/databaseStorage.dart';
 import 'package:hashd/model/sms.dart';
+import 'package:hashd/model/storageModels.dart';
 import 'package:hashd/screens/home.dart';
 import 'package:hashd/screens/temp.dart';
 import 'package:hashd/widgets/common_styles.dart';
@@ -16,8 +19,41 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  final _formKey = GlobalKey<FormState>();
 
+  bool isLoading = false;
   bool otpSent = false;
+
+  static TextEditingController nameTextController = new TextEditingController();
+  static TextEditingController aadhaarNumberController = new TextEditingController();
+  static TextEditingController phoneNumberController = new TextEditingController();
+  static TextEditingController otpController = new TextEditingController();
+  void createUser() async {
+    if(_formKey.currentState!.validate()) {
+      print("Pushing Data");
+      MyUser.UID = DateTime
+          .now()
+          .microsecondsSinceEpoch
+          .toString();
+      User user = new User(
+          UID: MyUser.UID,
+          aadhar: aadhaarNumberController.text,
+          name: nameTextController.text,
+          phone: phoneNumberController.text);
+      await Database.createUser(user);
+      setState(() {
+        isLoading = false;
+      });
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      CommonStyles.snackBar(context, "User Creation Problem");
+      print('User Creation Problem');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           child: Container(
             child: Image.asset(
-                "assets/images/logo.jpeg",
+                "assets/images/sihlogo.png",
               width: 100,
               height: 100,
             )
@@ -55,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                     sigmaX: 2,
                       sigmaY :2
                   ),
-                  child: Container(
+                  child: !isLoading?Container(
                     height: MediaQuery.of(context).size.height,
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(horizontal: 24),
@@ -63,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Form(
+                          key: _formKey,
                           child: Column(
                             children: [
                               // Text(
@@ -73,15 +110,28 @@ class _LoginPageState extends State<LoginPage> {
                               // ),
                               // SizedBox(height: 35,),
                               TextFormField(
+                                validator: (value) {
+                                  if(value==null || value.isEmpty) {
+                                    return 'It Cannot be Empty!';
+                                  }
+                                },
+                                controller: nameTextController,
                                 style: TextStyle(
                                   color: Colors.white
                                 ),
-                                maxLength: 16,
                                 keyboardType: TextInputType.text,
                                 decoration: CommonStyles.textFieldStyle("Enter Name"),
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(height: 15,),
                               TextFormField(
+                                validator: (value) {
+                                  if(value==null || value.isEmpty) {
+                                    return 'Aadhaar Number cannot be empty';
+                                  } else if(value.length<16) {
+                                    return 'Enter 16-digit';
+                                  }
+                                },
+                                controller: aadhaarNumberController,
                                 style: TextStyle(
                                     color: Colors.white
                                 ),
@@ -91,6 +141,14 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(height: 5,),
                               TextFormField(
+                                validator: (value){
+                                  if(value==null) {
+                                    return 'It cannot be empty';
+                                  } else if(value.length<10) {
+                                    return 'Enter 10 digit phone number';
+                                  }
+                                },
+                                controller: phoneNumberController,
                                 style: TextStyle(
                                     color: Colors.white
                                 ),
@@ -100,6 +158,13 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(height: 5,),
                               otpSent?TextFormField(
+                                validator: (value) {
+                                  if(value==null) {
+                                    return 'Enter Otp';
+                                  }
+                                  return null;
+                                },
+                                controller: otpController,
                                 style: TextStyle(
                                   color: Colors.white
                                 ),
@@ -112,9 +177,14 @@ class _LoginPageState extends State<LoginPage> {
                               GestureDetector(
                                 onTap: () async {
                                   // SMS.sendMessage();
-                                  setState(() {
-                                    otpSent = true;
-                                  });
+                                  if(_formKey.currentState!.validate()) {
+                                    print('OTP Sending');
+                                    setState(() {
+                                      otpSent = true;
+                                    });
+                                  } else {
+
+                                  }
                                 },
                                 child: Container(
                                   child: CommonStyles.roundButton(context, "Send OTP"),
@@ -123,9 +193,12 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(height: 20,),
                               otpSent?GestureDetector(
                                 onTap: () {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
                                   //TODO : Change push to PushReplacement
                                   otpSent=false;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                                  createUser();
                                 },
                                 child: Container(
                                   child: CommonStyles.roundButton(context, "Submit"),
@@ -136,7 +209,8 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ],
                     ),
-                  ),
+                  ):
+                  Container(child: Center(child: CircularProgressIndicator())),
                 ),
               )
             ],

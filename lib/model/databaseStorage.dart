@@ -28,6 +28,7 @@ class Database{
         'phone':user.phone,
         'aadhar':user.aadhar
       });
+      print("User Created");
     } on Exception catch (e) {
       print(e.toString());
     }
