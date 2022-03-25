@@ -26,8 +26,6 @@ class DatabaseData{
           final List<dynamic> documents = snap.data!.docs;
           return Center(
                 child: ListView(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // mainAxisSize: MainAxisSize.max,
                   children:documents.map((doc){return Column(children: <Widget>[
                     ListTile(
                       leading: doc['lock']=='2'?Icon(Icons.thumb_up,color: Colors.green):Icon(Icons.pending_actions,color: Colors.red,),

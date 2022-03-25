@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hashd/model/capturePics.dart';
+import 'package:hashd/model/getDatabase.dart';
 import 'package:hashd/screens/reviewPage.dart';
 import 'package:hashd/screens/temp.dart';
 import 'package:hashd/services/Predic.dart';
@@ -55,58 +56,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             // TODO: Weather info Page
                             WeatherInfoView(),
-                            !isDeleted?Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(40),
-                                  border: Border.all(color: Colors.white),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.8),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(0,3),
-                                    )
-                                  ]
-                              ),
-                              margin: EdgeInsets.all(8),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  // mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(Icons.notifications),
-                                      title: Text(
-                                        "Notification 1",
-                                      ),
-                                      subtitle: Text("Description"),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        TextButton(
-                                          child: Text('Check Details'),
-                                          onPressed: () {
-                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
-                                          },
-                                        ),
-                                        const SizedBox(width: 8),
-                                        TextButton(
-                                          child: Text('Delete'),
-                                          onPressed: () {
-                                            setState(() {
-                                              isDeleted = true;
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(width: 8),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ):Container(),
+                            !isDeleted?DatabaseData.notif():Container(),
                           ],
                         ),
                       ),
