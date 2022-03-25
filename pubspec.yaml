@@ -39,6 +39,7 @@ dependencies:
 #  google_fonts:
   cupertino_icons :
   firebase_storage: 
+  shared_preferences:
   flutter:
     sdk: flutter
 
