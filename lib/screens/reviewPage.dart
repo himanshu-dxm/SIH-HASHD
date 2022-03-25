@@ -149,7 +149,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   GestureDetector(
                     onTap: () async {
                       print("Shop Tapped");
-                      Maps.openMap("fertilizers");
+                      WebView.openMap("fertilizers");
                     },
                     child: Container(
                       padding: EdgeInsets.all(8),

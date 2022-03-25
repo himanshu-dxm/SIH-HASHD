@@ -1,6 +1,6 @@
 import 'package:hashd/model/getCity.dart';
 import 'package:url_launcher/url_launcher.dart';
-class Maps{
+class WebView{
   static void openMap(String query)async{
     try {
       var coordinates = await getCoordinates();
@@ -9,6 +9,12 @@ class Maps{
     } on Exception catch (e) {
       print("cannot open maps");
     }
-
+  }
+  static void openUtube(String link)async{
+    try{
+      await launch(link);
+    }catch(e){
+      print("unable to open link :"+e.toString());
+    }
   }
 }

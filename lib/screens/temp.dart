@@ -15,7 +15,7 @@ class TempPage extends StatelessWidget {
           child: Column(
             children: [
               ElevatedButton(child: Text('press'),onPressed: ()async{
-                      Maps.openMap("fertilizers");
+                      WebView.openMap("fertilizers");
                 // print(await LanguageML.convertLanguage('telugu', "My name is"));
                 // LanguageML.speechOutput(await LanguageML.convertLanguage('hindi', "did u eat"), 'hindi');
               },),
