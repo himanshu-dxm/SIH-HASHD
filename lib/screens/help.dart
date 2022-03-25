@@ -89,8 +89,11 @@ class _HelpPageState extends State<HelpPage> {
           height: double.infinity,
           child: ListView.builder(
             itemBuilder: (ctx, index) {
+              String heading = GovMissions.mission[index];
+              String description = GovMissions.desc[index];
+              List<String> descList = description.split(".");
+              print(descList);
               return Container(
-                // width: double.infinity,
                 margin: EdgeInsets.all(6),
                 padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(
@@ -113,7 +116,7 @@ class _HelpPageState extends State<HelpPage> {
                         Container(
                           child: Flexible(
                             child: Text(
-                                GovMissions.mission[index],
+                                heading,
                                 maxLines: 5,
                               style: TextStyle(
                                 fontSize: 18,
@@ -135,13 +138,15 @@ class _HelpPageState extends State<HelpPage> {
                       ],
                     ),
                     SizedBox(height: 6,),
-                    Text(
-                        GovMissions.desc[index],
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400
-                      ),
-                    ),
+                    StringList(descList),
+
+                    // Text(
+                    //     description,
+                    //   style: TextStyle(
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.w400
+                    //   ),
+                    // ),
                   ],
                 ),
               );
@@ -151,54 +156,27 @@ class _HelpPageState extends State<HelpPage> {
         ));
   }
 }
-/*
-SingleChildScrollView(
-        child: Container(decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(color: Colors.white),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.8),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: Offset(0,3),
-                                  )
-                                ]
-                            ),
-                            margin: EdgeInsets.all(8),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                // mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Icon(Icons.notifications),
-                                    title: Text(GovMissions.mission[index]),
-                                    subtitle: Text("Description"),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      TextButton(
-                                        child: Text('Check Details'),
-                                        onPressed: () {
-                                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
-                                        },
-                                      ),
-                                      const SizedBox(width: 8),
-                                      TextButton(
-                                        child: Text('Delete'),
-                                        onPressed: () {
 
-                                        },
-                                      ),
-                                      const SizedBox(width: 8),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-        )
-*/
+class StringList extends StatelessWidget {
+
+  late List<String> descList;
+  StringList(List<String> descList) {
+    this.descList = descList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemBuilder: (context,index) {
+          return ListTile(
+              title: Text(
+                  descList[index],
+                style: TextStyle(
+                  color: Colors.blue
+                ),
+              )
+          );
+        });
+  }
+}
+
