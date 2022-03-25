@@ -9,6 +9,7 @@ import 'package:hashd/model/storageModels.dart';
 import 'package:hashd/screens/home.dart';
 import 'package:hashd/screens/temp.dart';
 import 'package:hashd/widgets/common_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -29,18 +30,22 @@ class _LoginPageState extends State<LoginPage> {
   static TextEditingController phoneNumberController = new TextEditingController();
   static TextEditingController otpController = new TextEditingController();
   void createUser() async {
+    final prefs = await SharedPreferences.getInstance();
     if(_formKey.currentState!.validate()) {
       print("Pushing Data");
       MyUser.UID = DateTime
           .now()
           .microsecondsSinceEpoch
           .toString();
+      
       User user = new User(
           UID: MyUser.UID,
           aadhar: aadhaarNumberController.text,
           name: nameTextController.text,
           phone: phoneNumberController.text);
       await Database.createUser(user);
+      await prefs.setBool('uidset',true);
+      await prefs.setString('UID', MyUser.UID);
       setState(() {
         isLoading = false;
       });
@@ -127,15 +132,15 @@ class _LoginPageState extends State<LoginPage> {
                                 validator: (value) {
                                   if(value==null || value.isEmpty) {
                                     return 'Aadhaar Number cannot be empty';
-                                  } else if(value.length<16) {
-                                    return 'Enter 16-digit';
+                                  } else if(value.length<12) {
+                                    return 'Enter 12-digit';
                                   }
                                 },
                                 controller: aadhaarNumberController,
                                 style: TextStyle(
                                     color: Colors.white
                                 ),
-                                maxLength: 16,
+                                maxLength: 12,
                                 keyboardType: TextInputType.number,
                                 decoration: CommonStyles.textFieldStyle("Enter Aadhaar Number"),
                               ),

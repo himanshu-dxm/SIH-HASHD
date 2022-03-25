@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 
 class WeatherData {
   static late WeatherLocations weather;
-  static void getWeather() async {
+  static Future<void> getWeather() async {
+    print('getting weather');
     weather = await fetchWeather();
   }
 }
