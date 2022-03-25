@@ -64,4 +64,23 @@ class Database{
     }
   }
   // static Future<String> getNoOFCases()
+  static Future<dynamic> getdatabaseData()async{
+    List<Map<String,dynamic>> ans = [];
+    await FirebaseFirestore.instance.collection('reports').get().then((value) {
+      print("in dab");
+      value.docs.forEach((element) {
+        if(element['RID']=='1648141315319'){
+          print("lock of "+element['RID']+" is "+element['lock']);
+        }
+        else{
+          print(element['RID']+"  "+element['lock'].toString());
+        }
+        // print(element.data());
+        // ans.add(element.data());
+      });
+      print(ans);
+      return ans;
+    });
+
+  }
 }

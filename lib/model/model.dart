@@ -25,6 +25,7 @@ Future<dynamic> getSuggestions(imgdata)async {
     for (var i in as.entries){
       r[i.key]=i.value.toString();
     }
+    print(r);
     return r;
     //respons type:
     //disease,plant,remedy

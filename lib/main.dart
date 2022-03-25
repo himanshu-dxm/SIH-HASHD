@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hashd/model/databaseStorage.dart';
+import 'package:hashd/model/getSoilData.dart';
 import 'package:hashd/model/weather_data.dart';
 import 'package:hashd/screens/login_page.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    APIDATA.getSoildata();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

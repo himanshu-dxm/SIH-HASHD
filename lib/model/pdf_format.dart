@@ -74,6 +74,7 @@ class Report{
   }
   static Widget buildDetails(Details details){
     return Container(
+      alignment: Alignment.centerLeft,
       child: Column(children: [
         Text("CROP : "+details.crop),
         Text("SOIL : "+details.soil),
