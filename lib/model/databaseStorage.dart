@@ -49,7 +49,8 @@ class Database{
         'imageUrls':urls,
         'message':'',
         'links':'',
-        'products':''
+        'products':'',
+        'disease':'',
       });
       print("data pushed to db\n\n");
     } on Exception catch (e) {

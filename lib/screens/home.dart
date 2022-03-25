@@ -23,11 +23,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff587308),
         centerTitle: true,
-        title: Text(
-            "H",
-          style: TextStyle(
-            fontSize: 40
-          ),
+        title: TextButton(
+          onPressed: (){
+            Navigator.push(context,MaterialPageRoute(builder: (ctx)=>TempPage()));
+          },
+            child:Text("H"),
+          // style: TextStyle(
+          //   fontSize: 40
+          // ),
         ),
       ),
       body: Container(
