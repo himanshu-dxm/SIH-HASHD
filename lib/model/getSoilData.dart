@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'getCity.dart';
 class APIDATA{
- static getSoildata()async{
+ static Future<dynamic> getSoildata()async{
    try {
      String state = await getState();
      var soil;
@@ -21,10 +21,18 @@ class APIDATA{
     //      }
     //    }
     //  }
-    print(json_data[0]['States']);
-   } on Exception catch (e) {
-     // TODO
-     print(e.toString());
-   }
+    for(var i in json_data)
+      {for(var j in i['States']){
+        if (j.toString().toLowerCase()==state.toString().toLowerCase()){
+          print(j.toString()+'\n'+i.toString());
+          var sf = Map<String,dynamic>.from({'soil':i['name'],'recommendations':i['Suitablecrop'],'lack':i['Lack-in']});
+          print("from sf"+sf['soil']);
+          return Map<String,dynamic>.from({'soil':i['name'],'recommendations':i['Suitablecrop'],'lack':i['Lack-in']});
+        }
+      }}
+    }catch(e){
+      print(e.toString());
+    }
+    // print(json_data[0]['States'])
 }
 }

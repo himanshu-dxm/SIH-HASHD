@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                               ):
                               GestureDetector(
                                 onTap: () async {
-                                  SMS.sendMessage();
+                                  // SMS.sendMessage();
                                   setState(() {
                                     otpSent = true;
                                   });

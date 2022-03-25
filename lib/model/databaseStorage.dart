@@ -62,8 +62,8 @@ class Database{
       var i=0;
       for (var filepath in filepaths) {
         var file = File(filepath);
-        await FirebaseStorage.instance.ref().child(RID+'_'+i.toString()+'.jpg').putFile(file);
-        urls.add(await FirebaseStorage.instance.ref().child(RID+'_'+i.toString()+'.jpg').getDownloadURL());
+        await FirebaseStorage.instance.ref().child(RID+'/'+RID+'_'+i.toString()+'.jpg').putFile(file);
+        urls.add(await FirebaseStorage.instance.ref().child(RID+'/'+RID+'_'+i.toString()+'.jpg').getDownloadURL());
         print("added image to firebase :  "+i.toString());
         i++;
       }

@@ -26,6 +26,7 @@ class Predictions{
 class Details{
   final String soil;
   final String humidity;
+  final String lackIn;
   final String crop;
   final int no_of_cases;
   final String location;
@@ -36,7 +37,8 @@ class Details{
     required this.crop,
     required this.no_of_cases,
     required this.location,
-    required this.no_of_images
+    required this.no_of_images,
+    required this.lackIn,
   });
 }
 class Id{
@@ -82,6 +84,7 @@ class Report{
         Text("LOCATION : "+details.location),
         Text("NUMBER OF CASES REPORTED IN THAT LOCATION : "+details.no_of_cases.toString()),
         Text("NUMBER OF IMAGES ATTACHED : "+details.no_of_images.toString()),
+        Text('SOIL LACKS :'+details.lackIn),
       ]),
     );
   }

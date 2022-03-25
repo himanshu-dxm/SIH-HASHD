@@ -170,17 +170,23 @@ class _HomePageState extends State<HomePage> {
                               child: FloatingActionButton.extended(
                                 backgroundColor: Color(0xff587308),
                                   onPressed: () async {
-                                    Prediction.getPredictions();
+                                    
                                     setState(() {
                                       isLoading = true;
                                       numImages = 0;
                                     });
+                                    var s = await Prediction.getPredictions();
+                                    if(s==false){
+                                      print('error in main pred');
+                                    }
                                     isDeleted = false;
+                                    isLoading=false;
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
                                     // Timer(const Duration(seconds: 5), (){});
-                                    Timer(const Duration(seconds: 10),(){
-                                      isLoading=false;
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
-                                    });
+                                    // Timer(const Duration(seconds: 10),(){
+                                    //   isLoading=false;
+                                    //   Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
+                                    // });
                                   },
                                   label: const Text(
                                     "Done"
