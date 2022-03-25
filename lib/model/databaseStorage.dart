@@ -75,8 +75,8 @@ class Database{
         else{
           print(element['RID']+"  "+element['lock'].toString());
         }
-        // print(element.data());
-        // ans.add(element.data());
+        print(element.data());
+        ans.add(element.data());
       });
       print(ans);
       return ans;

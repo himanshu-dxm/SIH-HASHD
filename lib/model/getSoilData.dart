@@ -21,7 +21,6 @@ class APIDATA{
     //      }
     //    }
     //  }
-    
     print(json_data[0]['States']);
    } on Exception catch (e) {
      // TODO

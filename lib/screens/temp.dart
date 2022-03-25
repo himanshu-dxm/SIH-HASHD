@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hashd/model/maps.dart';
 import '../model/language.dart';
 class TempPage extends StatelessWidget {
   const TempPage({Key? key}) : super(key: key);
@@ -14,8 +15,9 @@ class TempPage extends StatelessWidget {
           child: Column(
             children: [
               ElevatedButton(child: Text('press'),onPressed: ()async{
-                print(await LanguageML.convertLanguage('telugu', "My name is"));
-                LanguageML.speechOutput(await LanguageML.convertLanguage('hindi', "did u eat"), 'hindi');
+                      Maps.openMap("fertilizers");
+                // print(await LanguageML.convertLanguage('telugu', "My name is"));
+                // LanguageML.speechOutput(await LanguageML.convertLanguage('hindi', "did u eat"), 'hindi');
               },),
             ],
           ),
