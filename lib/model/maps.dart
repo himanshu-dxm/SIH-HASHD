@@ -10,7 +10,7 @@ class WebView{
       print("cannot open maps");
     }
   }
-  static void openUtube(String link)async{
+  static void openLink(String link)async{
     try{
       await launch(link);
     }catch(e){
