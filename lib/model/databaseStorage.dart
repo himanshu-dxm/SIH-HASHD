@@ -21,37 +21,51 @@ class Database{
     
   }
   static Future createUser(User user)async{
-    await FirebaseFirestore.instance.collection('users').add({
-      'UID':user.UID,
-      'name':user.name,
-      'phone':user.phone,
-      'aadhar':user.aadhar
-    });
+    try {
+      await FirebaseFirestore.instance.collection('users').add({
+        'UID':user.UID,
+        'name':user.name,
+        'phone':user.phone,
+        'aadhar':user.aadhar
+      });
+    } on Exception catch (e) {
+      print(e.toString());
+    }
 }
   static Future pushdata(String RID,ReportFormat report,String urls)async{
-    await FirebaseFirestore.instance.collection('reports').add({
-      'RID':RID,
-      'UID':report.UID,
-      'EID':report.EID,
-      'soil':report.soil,
-      'crop':report.crop,
-      'humidity':report.humidity,
-      'location':report.location,
-      'lock':report.lock,
-      'no_of_cases':report.no_of_cases,
-      'no_of_images':report.no_of_images,
-      'imageUrls':urls
-    });
-    print("data pushed to db\n\n");
+    try {
+      await FirebaseFirestore.instance.collection('reports').add({
+        'RID':RID,
+        'UID':report.UID,
+        'EID':report.EID,
+        'soil':report.soil,
+        'crop':report.crop,
+        'humidity':report.humidity,
+        'location':report.location,
+        'lock':report.lock,
+        'no_of_cases':report.no_of_cases,
+        'no_of_images':report.no_of_images,
+        'imageUrls':urls,
+        'message':'',
+        'links':'',
+        'products':''
+      });
+      print("data pushed to db\n\n");
+    } on Exception catch (e) {
+      print(e.toString());
+    }
   }
   static Future<String> pushImages(String RID)async{
     try {
       var filepaths = CapturePicture.filepaths;
       List<String> urls=[];
-      for (var i = 0;i<filepaths.length;i++) {
-        var file = File(filepaths[i]);
-         await FirebaseStorage.instance.ref().child(RID+'/'+i.toString()+'.jpg').putFile(file);
-              urls.add(await FirebaseStorage.instance.ref().child(RID+'/'+i.toString()+'.jpg').getDownloadURL());
+      var i=0;
+      for (var filepath in filepaths) {
+        var file = File(filepath);
+        await FirebaseStorage.instance.ref().child(RID+'_'+i.toString()+'.jpg').putFile(file);
+        urls.add(await FirebaseStorage.instance.ref().child(RID+'_'+i.toString()+'.jpg').getDownloadURL());
+        print("added image to firebase :  "+i.toString());
+        i++;
       }
       print("imags pushed\n\n");
       print(json.encode(urls));
@@ -65,22 +79,28 @@ class Database{
   }
   // static Future<String> getNoOFCases()
   static Future<dynamic> getdatabaseData()async{
-    List<Map<String,dynamic>> ans = [];
-    await FirebaseFirestore.instance.collection('reports').get().then((value) {
-      print("in dab");
-      value.docs.forEach((element) {
-        if(element['RID']=='1648141315319'){
-          print("lock of "+element['RID']+" is "+element['lock']);
-        }
-        else{
-          print(element['RID']+"  "+element['lock'].toString());
-        }
-        print(element.data());
-        ans.add(element.data());
+    try {
+      List<Map<String,dynamic>> ans = [];
+      await FirebaseFirestore.instance.collection('reports').get().then((value) {
+        print("in dab");
+        value.docs.forEach((element) {
+          if(element['RID']=='1648141315319'){
+            print("lock of "+element['RID']+" is "+element['lock']);
+          }
+          else{
+            print(element['RID']+"  "+element['lock'].toString());
+          }
+          print(element.data());
+          ans.add(element.data());
+        });
+        print(ans);
+        return ans;
       });
-      print(ans);
-      return ans;
-    });
+    } on Exception catch (e) {
+      // TODO
+      print(e.toString());
+      return e.toString();      
+    }
 
   }
 }
