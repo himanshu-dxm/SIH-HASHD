@@ -29,6 +29,7 @@ dependencies:
   learning_translate: ^0.0.4
   geolocator: ^7.7.1
   geocoding: ^2.0.1
+  flutter_phone_direct_caller: ^2.1.0
   text_to_speech: ^0.2.3
   pdf: ^3.4.2
   path_provider:

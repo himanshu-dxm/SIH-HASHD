@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    APIDATA.getSoildata();
+    // APIDATA.getSoildata();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
