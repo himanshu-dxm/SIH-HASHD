@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hashd/model/language.dart';
+import 'package:hashd/model/maps.dart';
 import 'package:hashd/model/pdf_format.dart';
 import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/common_styles.dart';
@@ -51,35 +52,122 @@ class _ReviewPageState extends State<ReviewPage> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        actions: [
-          GestureDetector(
-            onTap: () {
-              // TODO: Translate
-              translate();
-              setState(() {});
-            },
-            child: Container(
-              padding: EdgeInsets.all(8),
-                child: Icon(Icons.translate),
-            ),
-          ),
-
-          GestureDetector(
-            onTap: () {
-              speakUp();
-            },
-              child: Container(
-                padding: EdgeInsets.all(8),
-                  child: Icon(Icons.keyboard_voice)
-              )
-          ),
-        ],
+        leading: GestureDetector(
+          child: Icon(Icons.arrow_back_ios),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: Color(0xff587308),
         centerTitle: true,
         title: Text(
           "H",
           style: TextStyle(
               fontSize: 40
+          ),
+        ),
+      ),
+      endDrawer: Drawer(
+        elevation: 16,
+        child: Container(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xff587308),
+                ),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          // alignment: Alignment.topLeft,
+                          child: InkWell(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Icon(Icons.close,size: 40,)
+                          )
+                      ),
+                      Container(
+                        child: Text(
+                          "APP Name",
+                          style: TextStyle(
+                            fontSize: 25
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 50,),
+                  GestureDetector(
+                    onTap: () {
+                      // TODO: Translate
+                      translate();
+                      setState(() {});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.translate,size: 48,),
+                          SizedBox(width: 8,),
+                          Text("Translate",style: TextStyle(
+                            fontSize: 24
+                          ),),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 24,),
+                  GestureDetector(
+                      onTap: () {
+                        speakUp();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(Icons.mic,size: 48,),
+                            SizedBox(width: 8,),
+                            Text("Audio Assist",style: TextStyle(
+                                fontSize: 24
+                            ),),
+                          ],
+                        ),
+                      ),
+                  ),
+                  SizedBox(height: 24,),
+                  GestureDetector(
+                    onTap: () async {
+                      print("Shop Tapped");
+                      Maps.openMap("fertilizers");
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.shopping_cart,size: 48,),
+                          SizedBox(width: 8,),
+                          Text("Open Stores",style: TextStyle(
+                              fontSize: 24
+                          ),),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -215,5 +303,6 @@ class MyListView extends StatelessWidget {
     );
   }
 }
+
 
 
