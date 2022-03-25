@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hashd/model/capturePics.dart';
 import 'package:hashd/screens/reviewPage.dart';
+import 'package:hashd/screens/temp.dart';
 import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
 class HomePage extends StatefulWidget {
@@ -167,15 +170,17 @@ class _HomePageState extends State<HomePage> {
                               child: FloatingActionButton.extended(
                                 backgroundColor: Color(0xff587308),
                                   onPressed: () async {
+                                    Prediction.getPredictions();
                                     setState(() {
                                       isLoading = true;
                                       numImages = 0;
                                     });
-                                    Prediction.getPredictions();
-                                    setState(() {
-                                      isLoading = false;
-                                    });
                                     isDeleted = false;
+                                    // Timer(const Duration(seconds: 5), (){});
+                                    Timer(const Duration(seconds: 10),(){
+                                      isLoading=false;
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
+                                    });
                                   },
                                   label: const Text(
                                     "Done"

@@ -42,7 +42,7 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 
   void speakUp() {
-    LanguageML.speechOutput(remedy, 'hi');
+    LanguageML.speechOutput(remedy, 'hindi');
   }
 
   @override
