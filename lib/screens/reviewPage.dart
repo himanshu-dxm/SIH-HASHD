@@ -223,10 +223,13 @@ class MyListView extends StatelessWidget {
   late String cropName;
   late String diseaseDetected;
   late String remedy;
+  late List<String> remedyList;
   MyListView({required String cropName,required String diseaseDetected,required String remedy}) {
     this.remedy = remedy;
     this.cropName = cropName;
     this.diseaseDetected = diseaseDetected;
+    remedyList = remedy.split(".");
+    print(remedyList);
   }
 
   @override
@@ -306,11 +309,26 @@ class MyListView extends StatelessWidget {
                   ]
               ),
               padding: EdgeInsets.all(8),
-              child: Text(
-                  "Solution: "+remedy,
-                style: TextStyle(
-                  fontSize: 18
+              // child: Text(
+              //   "Solution :"+remedy,
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //   ),
+              // ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                        "Solution : ",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    StringList(remedyList),
+                  ],
                 ),
+                physics: ScrollPhysics(),
               ),
             ),
           ),
@@ -319,6 +337,36 @@ class MyListView extends StatelessWidget {
         // Contact Expert
         CommonStyles.roundButton(context, "Contact Expert!"),
       ],
+    );
+  }
+}
+
+class StringList extends StatelessWidget {
+
+  late List<String> remedyList;
+  StringList(List<String> remedyList) {
+    this.remedyList = remedyList;
+    print(this.remedyList);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+        itemBuilder: (context,index) {
+          return Container(
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(8),
+            child: Text(
+                  "* "+remedyList[index],
+                  style: TextStyle(
+                    fontSize: 18
+                  ),
+                )
+            );
+        },
+      itemCount: remedyList.length,
     );
   }
 }
