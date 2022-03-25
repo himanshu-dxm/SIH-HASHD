@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hashd/model/sms.dart';
 import 'package:hashd/screens/home.dart';
 import 'package:hashd/screens/temp.dart';
 import 'package:hashd/widgets/common_styles.dart';
@@ -107,7 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: CommonStyles.textFieldStyle("Enter OTP"),
                               ):
                               GestureDetector(
-                                onTap: () {
+                                onTap: () async {
+                                  SMS.sendMessage();
                                   setState(() {
                                     otpSent = true;
                                   });
