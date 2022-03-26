@@ -11,7 +11,7 @@
   </intent>  
  </queries>
     <application
-        android:label="hashd"
+        android:label="Kisan Seva"
         android:icon="@mipmap/ic_launcher">
         
         <activity

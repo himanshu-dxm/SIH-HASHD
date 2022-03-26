@@ -61,6 +61,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    String language ='hindi';
+    bool alert = true;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff587308),
@@ -78,7 +80,38 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
+      body:alert?AlertDialog(actions: [
+      Row(children: [ Icon(Icons.language),Text("  Select Language"),]),
+      RadioListTile(
+        title: Text('ENGLISH'),
+        value: 'english', groupValue: language, onChanged: (val){
+        setState(() {
+          language = val.toString();
+        });
+      }),
+      RadioListTile(
+        title:Text("HINDI"),
+        value: 'hindi', groupValue: language, onChanged: (val){
+        setState(() {
+          language = val.toString();
+        });
+      }),
+      Row(
+        children: [
+          Radio(value: 'kannada', groupValue: language, onChanged: (val){
+            setState(() {
+              language = val.toString();
+            });
+          }),
+          Text("KANNADA"),
+        ],
+      ),
+      TextButton(onPressed: (){
+        setState(() {
+          alert = false;
+        });
+      }, child: Text('USE'))
+    ],): SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
           alignment: Alignment.bottomCenter,
