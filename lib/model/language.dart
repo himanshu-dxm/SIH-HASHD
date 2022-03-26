@@ -47,6 +47,9 @@ class LanguageML{
   }
   static void speechOutput(String data,String to_lang){
     TextToSpeech ttp = TextToSpeech();
+    ttp.setRate(0.8);
+    ttp.setPitch(0.8);
+    ttp.setVolume(1);
     var ans;
     if(languagesMappings[to_lang]==null){
         ans = 'hi';
