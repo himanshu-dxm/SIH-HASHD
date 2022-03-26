@@ -1,5 +1,6 @@
 // import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hashd/model/language.dart';
 import 'package:hashd/model/maps.dart';
@@ -477,8 +478,12 @@ class MyListView extends StatelessWidget {
 
 
         // Contact Expert
-        CommonStyles.roundButton(context, "Contact Expert!"),
-      ],
+        GestureDetector(
+          onTap: ()async{
+              // await FirebaseFirestore.instance.collection('reports').where('RID',).get();
+          },child: CommonStyles.roundButton(context, "Contact Expert!"),
+        ),
+        ],
     );
   }
 }

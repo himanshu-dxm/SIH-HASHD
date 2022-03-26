@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                                     setState(() {
                                       isLoading = true;
                                     });
-                                    var img=await CapturePicture.getImages();
+                                    var img=await CapturePicture.getGallery();
                                     setState(() {
                                       isLoading = false;
                                       numImages = CapturePicture.images.length;

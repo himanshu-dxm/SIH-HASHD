@@ -30,7 +30,7 @@ class Prediction {
     var EID = await Database.getExpert(predictions['plant'].toString());
     // print(EID);
     String no_of_cases = '0';//TODO
-    ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil,remedy:pred.remedy.toString(),disease:predictions['disease']);
+    ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '3', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil,remedy:pred.remedy.toString(),disease:predictions['disease']);
     var urls = await Database.pushImages(RID);
     Database.pushdata(RID, report, urls);
     //generate pdf
