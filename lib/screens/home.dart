@@ -30,14 +30,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff587308),
         centerTitle: true,
+        leading: Icon(Icons.arrow_right_sharp,size: 1,),
         title: TextButton(
           onPressed: (){
             Navigator.push(context,MaterialPageRoute(builder: (ctx)=>TempPage()));
           },
-            child:Text("H"),
-          // style: TextStyle(
-          //   fontSize: 40
-          // ),
+            child:Text("Kisan Seva",style: TextStyle(fontSize: 24),),
         ),
       ),
       body: Container(
@@ -140,6 +138,9 @@ class _HomePageState extends State<HomePage> {
                                     }
                                     isDeleted = false;
                                     isLoading=false;
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>ReviewPage()));
                                     // Timer(const Duration(seconds: 5), (){});
                                     // Timer(const Duration(seconds: 10),(){

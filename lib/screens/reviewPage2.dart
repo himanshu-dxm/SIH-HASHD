@@ -279,45 +279,91 @@ class MyListView extends StatelessWidget {
         ),
 
         // Disease Container
+        // Container(
+        //   decoration: BoxDecoration(
+        //       color: Color(0xffb7c881),
+        //       borderRadius: BorderRadius.circular(40),
+        //       border: Border.all(color: Colors.white),
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.grey.withOpacity(0.8),
+        //           spreadRadius: 5,
+        //           blurRadius: 7,
+        //           offset: Offset(0,3),
+        //         )
+        //       ]
+        //   ),
+        //   height: MediaQuery.of(context).size.height*0.10,
+        //   margin: EdgeInsets.all(8),
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //     // mainAxisSize: MainAxisSize.max,
+        //     children: [
+        //       ListTile(
+        //         // leading: Icon(Icons.album),
+        //         title: Text(
+        //           "Crop: "+cropName+
+        //               "\nDisease Detected: "+diseaseDetected,
+        //           style: TextStyle(
+        //               fontSize: 24,
+        //               fontWeight: FontWeight.bold
+        //           ),
+        //         ),
+        //         // subtitle: Text(
+        //         //   "Disease Detected: "+preds.disease,
+        //         //   style: TextStyle(
+        //         //     fontSize: 20,
+        //         //     fontWeight: FontWeight.w600,
+        //         //   ),
+        //         // ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+
         Container(
-          decoration: BoxDecoration(
-              color: Color(0xffb7c881),
-              borderRadius: BorderRadius.circular(40),
-              border: Border.all(color: Colors.white),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.8),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0,3),
-                )
-              ]
-          ),
-          height: MediaQuery.of(context).size.height*0.10,
+          // height: 350,
+
           margin: EdgeInsets.all(8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // mainAxisSize: MainAxisSize.max,
-            children: [
-              ListTile(
-                // leading: Icon(Icons.album),
-                title: Text(
-                  "Crop: "+cropName+
-                      "\nDisease Detected: "+diseaseDetected,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                // subtitle: Text(
-                //   "Disease Detected: "+preds.disease,
-                //   style: TextStyle(
-                //     fontSize: 20,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffb7c881),
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: Colors.white),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.8),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0,3),
+                    )
+                  ]
               ),
-            ],
+              padding: EdgeInsets.all(8),
+              // child: Text(
+              //   "Solution :"+prediction,
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //   ),
+              // ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      "Crop: "+cropName+
+                          "\nDisease Detected: "+diseaseDetected,
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    // StringList(messageList),
+                  ],
+                ),
+                physics: ScrollPhysics(),
+              ),
+            ),
           ),
         ),
 
