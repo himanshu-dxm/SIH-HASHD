@@ -1,4 +1,3 @@
-// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:hashd/model/language.dart';
@@ -28,6 +27,8 @@ class _ReviewPage2State extends State<ReviewPage2> {
   late String products;
   late String links;
 
+  String dropDownLanguage = "Hindi";
+
   @override
   void initState() {
     super.initState();
@@ -39,10 +40,10 @@ class _ReviewPage2State extends State<ReviewPage2> {
     links = widget.doc['links'];
   }
 
-  void translate() async {
-    var a = await LanguageML.convertLanguage('hindi', message);
-    var b = await LanguageML.convertLanguage('hindi', cropName);
-    var c = await LanguageML.convertLanguage('hindi', diseaseDetected);
+  void translate(String language) async {
+    var a = await LanguageML.convertLanguage(language, message);
+    var b = await LanguageML.convertLanguage(language, cropName);
+    var c = await LanguageML.convertLanguage(language, diseaseDetected);
     setState(() {
       message = a;
       cropName = b;
@@ -69,9 +70,9 @@ class _ReviewPage2State extends State<ReviewPage2> {
         backgroundColor: Color(0xff587308),
         centerTitle: true,
         title: Text(
-          "H",
+          "Kisan Seva",
           style: TextStyle(
-              fontSize: 40
+              fontSize: 28
           ),
         ),
       ),
@@ -100,7 +101,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
                         ),
                         Container(
                           child: Text(
-                            "APP Name",
+                            "Kisan Seva",
                             style: TextStyle(
                                 fontSize: 25
                             ),
@@ -114,24 +115,46 @@ class _ReviewPage2State extends State<ReviewPage2> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50,),
-                  GestureDetector(
-                    onTap: () {
-                      // TODO: Translate
-                      translate();
-                      setState(() {});
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(Icons.translate,size: 48,),
-                          SizedBox(width: 8,),
-                          Text("Translate",style: TextStyle(
-                              fontSize: 24
-                          ),),
-                        ],
-                      ),
+                  Container(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // TODO: Translate
+                            translate(dropDownLanguage.toLowerCase());
+                            print("Translating");
+                            setState(() {});
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.translate,size: 48,),
+                                SizedBox(width: 8,),
+                                Text("Translate",style: TextStyle(
+                                    fontSize: 24
+                                ),),
+                                SizedBox(width: 8,),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8,),
+                        DropdownButton(
+                          value: dropDownLanguage,
+                          onChanged: (String? value) {
+                            setState(() {
+                              dropDownLanguage = value!;
+                            });
+                          },
+                          items: [
+                            DropdownMenuItem(child: Text("Hindi"),value: "Hindi",),
+                            DropdownMenuItem(child: Text("Kannada"),value: "Kannada",),
+                            DropdownMenuItem(child: Text("English"),value: "English",)
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: 24,),
