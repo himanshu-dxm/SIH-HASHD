@@ -23,7 +23,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
   late Predictions preds;
   late String cropName;
   late String diseaseDetected;
-  late String prediction;
+  // late String prediction;
   late String message;
   late String products;
   late String links;
@@ -33,25 +33,25 @@ class _ReviewPage2State extends State<ReviewPage2> {
     super.initState();
     cropName = widget.doc['crop'];
     diseaseDetected = widget.doc['disease'];
-    prediction = widget.doc['prediction'];
+    // prediction = widget.doc['prediction'];
     message = widget.doc['message'];
     products = widget.doc['products'];
     links = widget.doc['links'];
   }
 
   void translate() async {
-    var a = await LanguageML.convertLanguage('hindi', prediction);
+    var a = await LanguageML.convertLanguage('hindi', message);
     var b = await LanguageML.convertLanguage('hindi', cropName);
     var c = await LanguageML.convertLanguage('hindi', diseaseDetected);
     setState(() {
-      prediction = a;
+      message = a;
       cropName = b;
       diseaseDetected = c;
     });
   }
 
   void speakUp() {
-    LanguageML.speechOutput(prediction, 'hindi');
+    LanguageML.speechOutput(message, 'hindi');
   }
 
   @override
@@ -219,7 +219,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   child: MyListView(
                     cropName: cropName,
                     diseaseDetected: diseaseDetected,
-                    prediction: prediction,
+                    // prediction: ,
                     message: message,
                     links: links,
                     products: products,
@@ -237,7 +237,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
 class MyListView extends StatelessWidget {
   late String cropName;
   late String diseaseDetected;
-  late String prediction;
+  // late String prediction;
   late String message;
   late String products;
   late String links;
@@ -247,22 +247,22 @@ class MyListView extends StatelessWidget {
   late List<String> linksList;
   MyListView({required String cropName,
     required String diseaseDetected,
-    required String prediction,
+    // required String prediction,
     required String message,
     required String products,
     required String links
   }) {
-    this.prediction = prediction;
+    // this.prediction = prediction;
     this.cropName = cropName;
     this.diseaseDetected = diseaseDetected;
     this.message = message;
     this.products = products;
     this.links = links;
-    predictionList = prediction.split(".");
+    // predictionList = prediction.split(".");
     messageList = message.split(".");
     productsList = products.split(".");
     linksList = links.split(".");
-    print("Predictions List:"+predictionList.toString());
+    print("Message List:"+messageList.toString());
   }
 
   @override
@@ -293,7 +293,7 @@ class MyListView extends StatelessWidget {
                 )
               ]
           ),
-          height: MediaQuery.of(context).size.height*0.20,
+          height: MediaQuery.of(context).size.height*0.10,
           margin: EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -322,54 +322,54 @@ class MyListView extends StatelessWidget {
         ),
 
         // Predictions
-        Container(
-          height: 350,
-
-          margin: EdgeInsets.all(8),
-          child: SingleChildScrollView(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Color(0xffb7c881),
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: Colors.white),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.8),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0,3),
-                    )
-                  ]
-              ),
-              padding: EdgeInsets.all(8),
-              // child: Text(
-              //   "Solution :"+prediction,
-              //   style: TextStyle(
-              //     fontSize: 18,
-              //   ),
-              // ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(
-                      "Solution : ",
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    StringList(predictionList.isEmpty?['No Suggestions']:predictionList),
-                  ],
-                ),
-                physics: ScrollPhysics(),
-              ),
-            ),
-          ),
-        ),
+        // Container(
+        //   height: 350,
+        //
+        //   margin: EdgeInsets.all(8),
+        //   child: SingleChildScrollView(
+        //     child: Container(
+        //       decoration: BoxDecoration(
+        //           color: Color(0xffb7c881),
+        //           borderRadius: BorderRadius.circular(40),
+        //           border: Border.all(color: Colors.white),
+        //           boxShadow: [
+        //             BoxShadow(
+        //               color: Colors.grey.withOpacity(0.8),
+        //               spreadRadius: 5,
+        //               blurRadius: 7,
+        //               offset: Offset(0,3),
+        //             )
+        //           ]
+        //       ),
+        //       padding: EdgeInsets.all(8),
+        //       // child: Text(
+        //       //   "Solution :"+prediction,
+        //       //   style: TextStyle(
+        //       //     fontSize: 18,
+        //       //   ),
+        //       // ),
+        //       child: SingleChildScrollView(
+        //         child: Column(
+        //           children: [
+        //             Text(
+        //               "Solution : ",
+        //               style: TextStyle(
+        //                   fontSize: 24,
+        //                   fontWeight: FontWeight.bold
+        //               ),
+        //             ),
+        //             StringList(predictionList.isEmpty?['No Suggestions']:predictionList),
+        //           ],
+        //         ),
+        //         physics: ScrollPhysics(),
+        //       ),
+        //     ),
+        //   ),
+        // ),
 
         // Message
         Container(
-          height: 350,
+          // height: 350,
 
           margin: EdgeInsets.all(8),
           child: SingleChildScrollView(
@@ -415,7 +415,7 @@ class MyListView extends StatelessWidget {
 
         //Products
         Container(
-          height: 350,
+          // height: 350,
 
           margin: EdgeInsets.all(8),
           child: SingleChildScrollView(
@@ -461,7 +461,7 @@ class MyListView extends StatelessWidget {
 
         // Links
         Container(
-          height: 350,
+          // height: 350,
 
           margin: EdgeInsets.all(8),
           child: SingleChildScrollView(
@@ -507,7 +507,11 @@ class MyListView extends StatelessWidget {
 
 
         // Contact Expert
-        CommonStyles.roundButton(context, "Contact Expert!"),
+        Container(
+          padding: EdgeInsets.all(8),
+          child: CommonStyles.roundButton(context, "Contact Expert!"),
+        )
+
       ],
     );
   }
