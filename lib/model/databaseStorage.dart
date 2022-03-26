@@ -51,7 +51,7 @@ class Database{
         'message':'',
         'links':'',
         'products':'',
-        'disease':'',
+        'disease':report.disease,
       });
       print("data pushed to db\n\n");
     } on Exception catch (e) {

@@ -9,8 +9,10 @@ import 'package:intl/intl.dart';
 
 class ReviewPage2 extends StatefulWidget {
   var doc;
+  static var lock;
   ReviewPage2(doc) {
     this.doc = doc;
+    ReviewPage2.lock = doc['lock'];
   }
 
   @override
@@ -22,7 +24,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
   late Predictions preds;
   late String cropName;
   late String diseaseDetected;
-  // late String prediction;
+  late String prediction;
   late String message;
   late String products;
   late String links;
@@ -34,10 +36,12 @@ class _ReviewPage2State extends State<ReviewPage2> {
     super.initState();
     cropName = widget.doc['crop'];
     diseaseDetected = widget.doc['disease'];
-    // prediction = widget.doc['prediction'];
+    prediction = widget.doc['remedy'];
     message = widget.doc['message'];
     products = widget.doc['products'];
     links = widget.doc['links'];
+    print("init statte");
+    print(widget.doc['crop']);
   }
 
   void translate(String language) async {
@@ -52,12 +56,12 @@ class _ReviewPage2State extends State<ReviewPage2> {
   }
 
   void speakUp() {
-    LanguageML.speechOutput(message, 'hindi');
+    
   }
 
   @override
   Widget build(BuildContext context) {
-
+    
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
@@ -160,7 +164,11 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: () {
-                      speakUp();
+                      try {
+                        LanguageML.speechOutput(message, 'hindi');
+                      } on Exception catch (e) {
+                       print(e.toString());
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.all(8),
@@ -177,24 +185,26 @@ class _ReviewPage2State extends State<ReviewPage2> {
                     ),
                   ),
                   SizedBox(height: 24,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                    GestureDetector(
-                    onTap: (){
-                      LanguageML.speechPause();
-                    },
-                    child: Icon(Icons.pause),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      LanguageML.speechResume();
-                    },
-                    child: Icon(Icons.play_arrow),
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //   children: [
+                  //   GestureDetector(
+                  //   onTap: (){
+                  //     print("pause");
+                  //     LanguageML.speechPause();
+                  //   },
+                  //   child: Icon(Icons.pause),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: (){
+                  //     print('resume');
+                  //     LanguageML.speechResume();
+                  //   },
+                  //   child: Icon(Icons.play_arrow),
+                  // ),
                   
-                    ],
-                  ),
+                  //   ],
+                  // ),
                   GestureDetector(
                     onTap: () async {
                       print("Shop Tapped");
@@ -252,7 +262,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   height: double.infinity,
                   repeat: ImageRepeat.repeat,
                 ),
-
+                widget.doc['lock']=='0'?
                 Container(
                   padding: EdgeInsets.all(8),
                   margin: EdgeInsets.all(8),
@@ -260,7 +270,21 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   child: MyListView(
                     cropName: cropName,
                     diseaseDetected: diseaseDetected,
-                    // prediction: ,
+                    prediction: widget.doc['remedy'],
+                    message: message,
+                    links: links,
+                    products: products,
+                  ),
+                )
+                :
+                Container(
+                  padding: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(8),
+                  // height: MediaQuery.of(context).size.height,
+                  child: MyListView(
+                    cropName: cropName,
+                    diseaseDetected: diseaseDetected,
+                    prediction: widget.doc['remedy'],
                     message: message,
                     links: links,
                     products: products,
@@ -278,7 +302,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
 class MyListView extends StatelessWidget {
   late String cropName;
   late String diseaseDetected;
-  // late String prediction;
+  late String prediction;
   late String message;
   late String products;
   late String links;
@@ -288,10 +312,10 @@ class MyListView extends StatelessWidget {
   late List<String> linksList;
   MyListView({required String cropName,
     required String diseaseDetected,
-    // required String prediction,
-    required String message,
+   required String prediction,
+   required String message,
     required String products,
-    required String links
+   required String links
   }) {
     // this.prediction = prediction;
     this.cropName = cropName;
@@ -299,7 +323,7 @@ class MyListView extends StatelessWidget {
     this.message = message;
     this.products = products;
     this.links = links;
-    // predictionList = prediction.split(".");
+    predictionList = prediction.split(".");
     messageList = message.split(".");
     productsList = products.split(".");
     linksList = links.split(".");
@@ -409,53 +433,53 @@ class MyListView extends StatelessWidget {
         ),
 
         // Predictions
-        // Container(
-        //   height: 350,
-        //
-        //   margin: EdgeInsets.all(8),
-        //   child: SingleChildScrollView(
-        //     child: Container(
-        //       decoration: BoxDecoration(
-        //           color: Color(0xffb7c881),
-        //           borderRadius: BorderRadius.circular(40),
-        //           border: Border.all(color: Colors.white),
-        //           boxShadow: [
-        //             BoxShadow(
-        //               color: Colors.grey.withOpacity(0.8),
-        //               spreadRadius: 5,
-        //               blurRadius: 7,
-        //               offset: Offset(0,3),
-        //             )
-        //           ]
-        //       ),
-        //       padding: EdgeInsets.all(8),
-        //       // child: Text(
-        //       //   "Solution :"+prediction,
-        //       //   style: TextStyle(
-        //       //     fontSize: 18,
-        //       //   ),
-        //       // ),
-        //       child: SingleChildScrollView(
-        //         child: Column(
-        //           children: [
-        //             Text(
-        //               "Solution : ",
-        //               style: TextStyle(
-        //                   fontSize: 24,
-        //                   fontWeight: FontWeight.bold
-        //               ),
-        //             ),
-        //             StringList(predictionList.isEmpty?['No Suggestions']:predictionList),
-        //           ],
-        //         ),
-        //         physics: ScrollPhysics(),
-        //       ),
-        //     ),
-        //   ),
-        // ),
+        Container(
+          height: 350,
+        
+          margin: EdgeInsets.all(8),
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffb7c881),
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: Colors.white),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.8),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0,3),
+                    )
+                  ]
+              ),
+              padding: EdgeInsets.all(8),
+              // child: Text(
+              //   "Solution :"+prediction,
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //   ),
+              // ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      "Predictions",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    StringList(predictionList.isEmpty?['No Suggestions']:predictionList),
+                  ],
+                ),
+                physics: ScrollPhysics(),
+              ),
+            ),
+          ),
+        ),
 
         // Message
-        Container(
+        ReviewPage2.lock=='2'?Container(
           // height: 350,
 
           margin: EdgeInsets.all(8),
@@ -498,10 +522,10 @@ class MyListView extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ):Container(),
 
         //Products
-        Container(
+        ReviewPage2.lock=='2'?Container(
           // height: 350,
 
           margin: EdgeInsets.all(8),
@@ -544,10 +568,10 @@ class MyListView extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ):Container(),
 
         // Links
-        Container(
+        ReviewPage2.lock=='2'?Container(
           // height: 350,
 
           margin: EdgeInsets.all(8),
@@ -590,7 +614,7 @@ class MyListView extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ):Container(),
 
 
         // Contact Expert

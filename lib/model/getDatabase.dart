@@ -46,6 +46,7 @@ class DatabaseData{
                               TextButton(
                                 child: Text('Check Details'),
                                 onPressed: () {
+                                  // print(doc['remedy'].toString());
                                   Navigator.push(ctx, MaterialPageRoute(builder: (context)=>ReviewPage2(doc)));
                                 },
                               ),

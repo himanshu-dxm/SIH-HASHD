@@ -47,16 +47,24 @@ class LanguageML{
     }
   }
   static void speechPause(){
-    ttp.pause();
+    try{
+    LanguageML.ttp.pause();
+    }catch(e){print(e.toString());}
   }
   static void speechResume(){
-    ttp.resume();
+    try{
+    LanguageML.ttp.resume();
+    }catch(e){print(e.toString());}
   }
   static void speechOutput(String data,String to_lang){
-    
-    ttp.setRate(0.8);
-    ttp.setPitch(0.8);
-    ttp.setVolume(1);
+    try {
+      LanguageML.ttp.setRate(0.8);
+      LanguageML.ttp.setPitch(0.8);
+    } on Exception catch (e) {
+      // TODO
+      print(e);
+    }
+    // ttp.setVolume(1);
     var ans;
     if(languagesMappings[to_lang]==null){
         ans = 'hi';
@@ -65,9 +73,10 @@ class LanguageML{
         ans = languagesMappings[to_lang];
       }
       print("in sppec");
-    ttp.setLanguage(ans);
+    LanguageML.ttp.setLanguage(ans);
     print('set lan');
-    ttp.speak(data);
+    LanguageML.ttp.speak(data);
+    
     print('done');
   }
 }
