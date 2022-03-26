@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hashd/model/language.dart';
 import 'package:hashd/model/maps.dart';
 import 'package:hashd/model/pdf_format.dart';
+import 'package:hashd/screens/help.dart';
 import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/common_styles.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,8 @@ class _ReviewPageState extends State<ReviewPage> {
   late String diseaseDetected;
   late String remedy;
 
+  String dropDownLanguage = "Hindi";
+
   @override
   void initState() {
     super.initState();
@@ -32,16 +35,26 @@ class _ReviewPageState extends State<ReviewPage> {
     remedy = preds.remedy;
   }
 
-  void translate() async {
-    var a = await LanguageML.convertLanguage('hindi', remedy);
-    var b = await LanguageML.convertLanguage('hindi', cropName);
-    var c = await LanguageML.convertLanguage('hindi', diseaseDetected);
+  void translate(String language) async {
+    var a = await LanguageML.convertLanguage(language, remedy);
+    var b = await LanguageML.convertLanguage(language, cropName);
+    var c = await LanguageML.convertLanguage(language, diseaseDetected);
     setState(() {
       remedy = a;
       cropName = b;
       diseaseDetected = c;
     });
   }
+  // void translate() async {
+  //   var a = await LanguageML.convertLanguage('hindi', remedy);
+  //   var b = await LanguageML.convertLanguage('hindi', cropName);
+  //   var c = await LanguageML.convertLanguage('hindi', diseaseDetected);
+  //   setState(() {
+  //     remedy = a;
+  //     cropName = b;
+  //     diseaseDetected = c;
+  //   });
+  // }
 
   void speakUp() {
     LanguageML.speechOutput(remedy, 'hindi');
@@ -75,78 +88,124 @@ class _ReviewPageState extends State<ReviewPage> {
             padding: EdgeInsets.zero,
             children: [
               DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color(0xff587308),
-                ),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xff587308),
+                  ),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
                           // alignment: Alignment.topLeft,
-                          child: InkWell(
-                              onTap: (){
-                                Navigator.pop(context);
-                              },
-                              child: Icon(Icons.close,size: 40,)
-                          )
-                      ),
-                      Container(
-                        child: Text(
-                          "APP Name",
-                          style: TextStyle(
-                            fontSize: 25
+                            child: InkWell(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(Icons.close,size: 40,)
+                            )
+                        ),
+                        Container(
+                          child: Text(
+                            "Kisan Seva",
+                            style: TextStyle(
+                                fontSize: 25
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
+                      ],
+                    ),
+                  )
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50,),
+                  Container(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // TODO: Translate
+                            translate(dropDownLanguage.toLowerCase());
+                            print("Translating");
+                            setState(() {});
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.translate,size: 48,),
+                                SizedBox(width: 8,),
+                                Text("Translate",style: TextStyle(
+                                    fontSize: 24
+                                ),),
+                                SizedBox(width: 8,),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8,),
+                        DropdownButton(
+                          value: dropDownLanguage,
+                          onChanged: (String? value) {
+                            setState(() {
+                              dropDownLanguage = value!;
+                            });
+                          },
+                          items: [
+                            DropdownMenuItem(child: Text("Hindi"),value: "Hindi",),
+                            DropdownMenuItem(child: Text("Kannada"),value: "Kannada",),
+                            DropdownMenuItem(child: Text("English"),value: "English",)
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 24,),
                   GestureDetector(
                     onTap: () {
-                      // TODO: Translate
-                      translate();
-                      setState(() {});
+                      try {
+                        LanguageML.speechOutput(remedy, 'hindi');
+                      } on Exception catch (e) {
+                        print(e.toString());
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.all(8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(Icons.translate,size: 48,),
+                          Icon(Icons.mic,size: 48,),
                           SizedBox(width: 8,),
-                          Text("Translate",style: TextStyle(
-                            fontSize: 24
+                          Text("Audio Assist",style: TextStyle(
+                              fontSize: 24
                           ),),
                         ],
                       ),
                     ),
                   ),
                   SizedBox(height: 24,),
-                  GestureDetector(
-                      onTap: () {
-                        speakUp();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.mic,size: 48,),
-                            SizedBox(width: 8,),
-                            Text("Audio Assist",style: TextStyle(
-                                fontSize: 24
-                            ),),
-                          ],
-                        ),
-                      ),
-                  ),
-                  SizedBox(height: 24,),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //   children: [
+                  //   GestureDetector(
+                  //   onTap: (){
+                  //     print("pause");
+                  //     LanguageML.speechPause();
+                  //   },
+                  //   child: Icon(Icons.pause),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: (){
+                  //     print('resume');
+                  //     LanguageML.speechResume();
+                  //   },
+                  //   child: Icon(Icons.play_arrow),
+                  // ),
+
+                  //   ],
+                  // ),
                   GestureDetector(
                     onTap: () async {
                       print("Shop Tapped");
@@ -170,6 +229,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   GestureDetector(
                     onTap: () async {
                       // TODO: Help page redirect
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpPage()));
                     },
                     child: Container(
                       padding: EdgeInsets.all(8),

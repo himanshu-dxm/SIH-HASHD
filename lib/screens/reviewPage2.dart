@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hashd/model/language.dart';
 import 'package:hashd/model/maps.dart';
 import 'package:hashd/model/pdf_format.dart';
+import 'package:hashd/screens/help.dart';
 import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/common_styles.dart';
 import 'package:intl/intl.dart';
@@ -48,10 +49,12 @@ class _ReviewPage2State extends State<ReviewPage2> {
     var a = await LanguageML.convertLanguage(language, message);
     var b = await LanguageML.convertLanguage(language, cropName);
     var c = await LanguageML.convertLanguage(language, diseaseDetected);
+    var d = await LanguageML.convertLanguage(language, prediction);
     setState(() {
       message = a;
       cropName = b;
       diseaseDetected = c;
+      prediction = d;
     });
   }
 
@@ -228,6 +231,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   GestureDetector(
                     onTap: () async {
                       // TODO: Help page redirect
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpPage()));
                     },
                     child: Container(
                       padding: EdgeInsets.all(8),
@@ -284,7 +288,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   child: MyListView(
                     cropName: cropName,
                     diseaseDetected: diseaseDetected,
-                    prediction: widget.doc['remedy'],
+                    prediction: prediction,
                     message: message,
                     links: links,
                     products: products,

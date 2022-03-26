@@ -43,7 +43,7 @@ class Database{
         'crop':report.crop,
         'humidity':report.humidity,
         'location':report.location,
-        'lock':report.lock,
+        'lock':'0',
         'no_of_cases':report.no_of_cases,
         'no_of_images':report.no_of_images,
         'remedy':report.remedy,
