@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hashd/model/User.dart';
 import 'package:hashd/screens/reviewPage.dart';
+import 'package:hashd/screens/reviewPage2.dart';
 
 class DatabaseData{
   static Future<List<dynamic>> getNotifications()async{
@@ -29,7 +30,8 @@ class DatabaseData{
             return Container(
               child: Center(
                     child: ListView(
-                      children:documents.map((doc){return Column(children: <Widget>[
+                      children:documents.map((doc){
+                        return Column(children: <Widget>[
                         ListTile(
                           leading: doc['lock']=='2'?Icon(Icons.thumb_up,color: Colors.green):Icon(Icons.pending_actions,color: Colors.red,),
                           title: doc['lock']=='2'?Text(doc['crop']+" \nDisease: "+doc['disease'].toString(),):Text(doc['crop']),
@@ -43,7 +45,7 @@ class DatabaseData{
                             TextButton(
                               child: Text('Check Details'),
                               onPressed: () {
-                                Navigator.push(ctx, MaterialPageRoute(builder: (context)=>ReviewPage()));
+                                Navigator.push(ctx, MaterialPageRoute(builder: (context)=>ReviewPage2(doc)));
                               },
                             ),
                             const SizedBox(width: 8),
