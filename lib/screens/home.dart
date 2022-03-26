@@ -18,6 +18,12 @@ class _HomePageState extends State<HomePage> {
   bool isDeleted = false;
   int numImages = 0;
   bool isLoading = false;
+
+  @override
+  void initState() {
+    isLoading = false;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

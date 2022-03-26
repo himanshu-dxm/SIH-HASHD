@@ -48,9 +48,9 @@ class DatabaseData{
                                 Navigator.push(ctx, MaterialPageRoute(builder: (context)=>ReviewPage2(doc)));
                               },
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 6),
                             TextButton(
-                              child: Text('Delete'),
+                              child: Text('Download Report'),
                               onPressed: () {
                                 // setState(() {
                                 //   // isDeleted = true;
