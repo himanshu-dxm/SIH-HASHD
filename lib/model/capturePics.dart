@@ -10,13 +10,15 @@ import 'package:image_picker/image_picker.dart';
 class CapturePicture{
   static List<Uint8List?> images = [];
   static List<String?> filepaths = [];
-  static Future getImages()async{
+  static Future<void> getImages()async{
     var filePath = await getExternalStorageDirectory();
     try{
       print('taking images');
-         await FilePicker.platform.pickFiles(allowMultiple: true,type:FileType.custom,allowedExtensions: ['jpg','png','jpeg']).then((value) {
+         await FilePicker.platform.pickFiles(allowMultiple: true,type:FileType.custom,allowedExtensions: ['jpg','png','jpeg']).then((value)async {
            for(var file in value!.files){
-             images.add(file.bytes);
+             var b = await File(file.path!).readAsBytes();
+             images.add(b);
+             print(images);
              filepaths.add(file.path);
              print("added image");
            }
@@ -39,7 +41,7 @@ class CapturePicture{
     }
   }
   static Future<dynamic> getData()async{
-    return await getSuggestions(images[0]);
+    return await getSuggestions(images.first);
   }
   static getFilePaths(){
     return filepaths;

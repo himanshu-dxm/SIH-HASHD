@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 Future<dynamic> getSuggestions(imgdata)async {
   try{
   print("in");
+  print(imgdata.runtimeType);
+  print(imgdata);
   final response = await http.post(
     Uri.parse("https://plant-disease-detector-pytorch.herokuapp.com/"),
     headers: <String, String>{
