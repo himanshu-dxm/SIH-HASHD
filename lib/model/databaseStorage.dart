@@ -46,6 +46,7 @@ class Database{
         'lock':report.lock,
         'no_of_cases':report.no_of_cases,
         'no_of_images':report.no_of_images,
+        'remedy':report.remedy,
         'imageUrls':urls,
         'message':'',
         'links':'',

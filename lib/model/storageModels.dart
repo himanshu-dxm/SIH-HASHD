@@ -29,6 +29,7 @@ class Expert{
 }
 
 class ReportFormat{
+  final String remedy;
   final String UID;
   final String EID;
   final String crop;
@@ -39,6 +40,7 @@ class ReportFormat{
   final String no_of_cases;
   final String lock;
   const ReportFormat({
+    required this.remedy,
     required this.UID,
     required this.EID,
     required this.crop,

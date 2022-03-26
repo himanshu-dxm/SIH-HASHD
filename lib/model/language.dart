@@ -1,6 +1,7 @@
 import 'package:learning_translate/learning_translate.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 class LanguageML{
+  static TextToSpeech ttp = TextToSpeech();
   static var languagesMappings = {
     'hindi':'hi',
     'telugu':'te',
@@ -45,8 +46,14 @@ class LanguageML{
       return "";
     }
   }
+  static void speechPause(){
+    ttp.pause();
+  }
+  static void speechResume(){
+    ttp.resume();
+  }
   static void speechOutput(String data,String to_lang){
-    TextToSpeech ttp = TextToSpeech();
+    
     ttp.setRate(0.8);
     ttp.setPitch(0.8);
     ttp.setVolume(1);

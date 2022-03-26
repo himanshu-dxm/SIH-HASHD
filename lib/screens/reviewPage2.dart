@@ -177,6 +177,24 @@ class _ReviewPage2State extends State<ReviewPage2> {
                     ),
                   ),
                   SizedBox(height: 24,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                    GestureDetector(
+                    onTap: (){
+                      LanguageML.speechPause();
+                    },
+                    child: Icon(Icons.pause),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      LanguageML.speechResume();
+                    },
+                    child: Icon(Icons.play_arrow),
+                  ),
+                  
+                    ],
+                  ),
                   GestureDetector(
                     onTap: () async {
                       print("Shop Tapped");
