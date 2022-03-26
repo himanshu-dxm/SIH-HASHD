@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
     } else {
       setState(() {
         isLoading = false;
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     String language ='hindi';
-    bool alert = true;
+    bool alert = false;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff587308),
