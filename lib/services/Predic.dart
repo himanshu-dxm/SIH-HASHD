@@ -22,7 +22,11 @@ class Prediction {
     print((predictions).toString());
     var soildata = await APIDATA.getSoildata();
     print(soildata.toString());
-    Predictions pred = Predictions(disease: predictions['disease'].toString(), plantName: predictions['plant'].toString(), remedy: predictions['remedy'].toString(),recommendations:soildata['recommendations'].toString());
+    Predictions pred = Predictions(
+        disease: predictions['disease'].toString(),
+        plantName: predictions['plant'].toString(),
+        remedy: predictions['remedy'].toString(),
+        recommendations:soildata['recommendations'].toString());
     preds=pred;
     // //Details
     Details details = Details(soil: soildata['soil'].toString(), humidity: WeatherData.weather.humidity.toString(), crop: predictions['plant'].toString(), no_of_cases: 1, location: WeatherData.weather.city.toString(), no_of_images: CapturePicture.images.length,lackIn:soildata['lack'].toString());
@@ -30,7 +34,7 @@ class Prediction {
     var EID = await Database.getExpert(predictions['plant'].toString());
     // print(EID);
     String no_of_cases = '0';//TODO
-    ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '3', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil,remedy:pred.remedy.toString(),disease:predictions['disease']);
+    ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil,remedy:pred.remedy.toString(),disease:predictions['disease']);
     var urls = await Database.pushImages(RID);
     Database.pushdata(RID, report, urls);
     //generate pdf

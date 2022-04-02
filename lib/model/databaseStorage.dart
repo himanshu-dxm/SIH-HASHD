@@ -35,6 +35,8 @@ class Database{
 }
   static Future pushdata(String RID,ReportFormat report,String urls)async{
     try {
+      print("In pushData");
+      print(report.toString());
       await FirebaseFirestore.instance.collection('reports').add({
         'RID':RID,
         'UID':report.UID,
@@ -51,10 +53,11 @@ class Database{
         'message':'',
         'links':'',
         'products':'',
-        'disease':report.disease,
+        // 'disease':report.disease
       });
       print("data pushed to db\n\n");
     } on Exception catch (e) {
+      print("Error in pushData");
       print(e.toString());
     }
   }
