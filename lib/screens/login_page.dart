@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff587308),
-        title: Center(child: Text("SIH HASHED")),
+        title: Center(child: Text("SRM HASH")),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>TempPage()));
