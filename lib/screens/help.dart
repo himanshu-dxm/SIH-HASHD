@@ -86,7 +86,6 @@ class _HelpPageState extends State<HelpPage> {
           ),
         ),
         body: Container(
-          height: double.infinity,
           child: ListView.builder(
             itemBuilder: (ctx, index) {
               String heading = GovMissions.mission[index];
@@ -116,37 +115,32 @@ class _HelpPageState extends State<HelpPage> {
                         Container(
                           child: Flexible(
                             child: Text(
-                                heading,
-                                maxLines: 5,
+                              heading,
+                              maxLines: 5,
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500
                               ),
                             ),
                           ),
                         ),
                         Container(
-                          child: GestureDetector(
-                              onTap: () async {
-                                WebView.openLink(GovMissions.urls[index]);
-                              },
-                              child: Container(
-                                child: Icon(Icons.open_in_new),
-                              )
-                          ),
+                            child: ElevatedButton(child: Icon(Icons.language),onPressed:()async{
+                              WebView.openLink(GovMissions.urls[index]);
+                            })
                         )
                       ],
                     ),
-                    SizedBox(height: 6,),
-                    StringList(descList),
+                    SizedBox(height: 10,),
+                    // StringList(descList),
 
-                    // Text(
-                    //     description,
-                    //   style: TextStyle(
-                    //     fontSize: 16,
-                    //     fontWeight: FontWeight.w400
-                    //   ),
-                    // ),
+                    Text(
+                      description,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -170,13 +164,12 @@ class StringList extends StatelessWidget {
         itemBuilder: (context,index) {
           return ListTile(
               title: Text(
-                  descList[index],
+                descList[index],
                 style: TextStyle(
-                  color: Colors.blue
+                    color: Colors.blue
                 ),
               )
           );
         });
   }
 }
-
