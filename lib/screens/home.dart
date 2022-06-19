@@ -7,6 +7,7 @@ import 'package:hashd/screens/reviewPage.dart';
 import 'package:hashd/screens/temp.dart';
 import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
+import 'package:tflite/tflite.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,6 +24,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     isLoading = false;
     super.initState();
+    loadModel();
+  }
+  loadModel() async {
+    await Tflite.loadModel(
+        model: 'assets/model/model.tflite',
+        labels: 'assets/model/labels.txt'
+    );
   }
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff587308),
         centerTitle: true,
-        leading: Icon(Icons.arrow_right_sharp,size: 1,),
+        leading: Icon(Icons.arrow_right_sharp,size: 32,),
         title: TextButton(
           onPressed: (){
             Navigator.push(context,MaterialPageRoute(builder: (ctx)=>TempPage()));

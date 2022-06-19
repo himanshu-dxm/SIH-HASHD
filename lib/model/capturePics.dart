@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'model.dart';
 // import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 class CapturePicture{
   static List<Uint8List?> images = [];
   static List<String?> filepaths = [];
@@ -31,6 +32,7 @@ class CapturePicture{
       print(e.toString());
     }
   }
+
 
   static Future<void> getGallery()async{
     var filePath = await getExternalStorageDirectory();

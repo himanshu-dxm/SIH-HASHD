@@ -34,11 +34,13 @@ dependencies:
   file_picker: 
   webview_flutter: 
   pdf: ^3.4.2
+  tflite:
   path_provider:
   image_picker: 
   url_launcher: 
 #  google_fonts:
   cupertino_icons :
+#  camera:
   firebase_storage: 
   shared_preferences:
   flutter:
@@ -68,6 +70,8 @@ flutter:
   assets:
     - assets/images/
     - assets/api/
+    - assets/model/
+#    - ./data/user/0/com.example.hashd/cache
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
