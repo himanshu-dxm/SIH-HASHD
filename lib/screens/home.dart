@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hashd/model/capturePics.dart';
 import 'package:hashd/model/getDatabase.dart';
 import 'package:hashd/screens/reviewPage.dart';
@@ -22,16 +23,36 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    isLoading = false;
     super.initState();
-    loadModel();
+    isLoading = true;
+    loadModel().then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
+
   loadModel() async {
-    await Tflite.loadModel(
+    Tflite.close();
+    try {
+      String? res = await Tflite.loadModel(
         model: 'assets/model/trial_model1.tflite',
-        labels: 'assets/model/labels.txt'
-    );
+        // model: 'assets/model/model.tflite',
+        labels: 'assets/model/labels.txt',
+      );
+      print(res);
+    } on PlatformException {
+      print("Cannot Load Model");
+    }
+    print("Model Loaded");
   }
+
+  void dispose() {
+    Tflite.close();
+    super.dispose();
+    print("Model disposed");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                           child: FloatingActionButton.extended(
                             backgroundColor: Color(0xff587308),
                           onPressed: () async {
-                            print("Button Pressesd");
+                            print("Button Pressed");
                             setState(() {
                               isLoading = true;
                             });
@@ -119,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                                     setState(() {
                                       isLoading = true;
                                     });
-                                    var img=await CapturePicture.getGallery();
+                                    var img=await CapturePicture.pickImage();
                                     setState(() {
                                       isLoading = false;
                                       numImages = CapturePicture.images.length;
@@ -140,9 +161,13 @@ class _HomePageState extends State<HomePage> {
                                       isLoading = true;
                                       numImages = 0;
                                     });
-                                    var s = await Prediction.getPredictions();
+                                    // var s = await Prediction.getPredictions();
+                                    var s = await Prediction.performPrediction();
                                     if(s==false){
                                       print('error in main pred');
+                                      setState(() {
+                                        isLoading = true;
+                                      });
                                     }
                                     isDeleted = false;
                                     isLoading=false;

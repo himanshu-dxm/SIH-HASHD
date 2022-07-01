@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hashd/model/capturePics.dart';
 import 'package:hashd/model/language.dart';
 import 'package:hashd/model/maps.dart';
 import 'package:hashd/model/pdf_format.dart';
@@ -75,9 +76,9 @@ class _ReviewPageState extends State<ReviewPage> {
         backgroundColor: Color(0xff587308),
         centerTitle: true,
         title: Text(
-          "H",
+          "KisanSeva",
           style: TextStyle(
-              fontSize: 40
+              fontSize: 28
           ),
         ),
       ),
@@ -301,8 +302,9 @@ class MyListView extends StatelessWidget {
         // Image Container
         Container(
           margin:EdgeInsets.all(8),
-          child: Image.asset(
-            "assets/images/download.jpg",
+          // Top Image
+          child: Image.file(
+            CapturePicture.image1!,
           ),
         ),
 

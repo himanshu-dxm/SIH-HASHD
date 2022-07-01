@@ -28,6 +28,10 @@ Future<dynamic> getSuggestions(imgdata)async {
       r[i.key]=i.value.toString();
     }
     print(r);
+    r['disease'] = "Default Disease";
+    r['plant'] = "Plant Name";
+    r['remedy'] = "Default Remedy";
+    r['recommendations'] = "Default Recommendations";
     return r;
     //respons type:
     //disease,plant,remedy

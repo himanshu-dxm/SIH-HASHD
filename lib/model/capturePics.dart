@@ -1,16 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:tflite/tflite.dart';
 import 'model.dart';
-// import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CapturePicture{
   static List<Uint8List?> images = [];
   static List<String?> filepaths = [];
+  static List? outputs;
+  static File? image1;
+  String output = '';
 
   static Future<void> getImages()async{
     try {
@@ -31,6 +32,32 @@ class CapturePicture{
       // TODO
       print(e.toString());
     }
+  }
+
+  static pickImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if(image==null) {
+      print("Image======null");
+      return null;
+    }
+    print("Image Picked ______ "+image.path.toString());
+    image1 = File(image.path);
+
+    classifyImage(image1!);
+  }
+  static classifyImage(File image) async {
+    print("In classify Image:|"+image.path.toString());
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      imageMean: 127.5,
+      imageStd: 127.5,
+      numResults: 6,
+      threshold: 0.05,
+    );
+    outputs = output;
+    print("Outputs="+outputs.toString());
+
+    // var diseaseName = _outputs![0]["label"];
   }
 
 
@@ -64,8 +91,15 @@ class CapturePicture{
       print(e.toString());
     }
   }
-  static Future<dynamic> getData()async{
-    return await getSuggestions(images[1]);
+  static Future<dynamic> getData() async {
+
+    var x = await getSuggestions(images[1]);
+    // var x;
+    // x['disease'] = outputs![0]["label"];
+    // x['plant'] = "Plant Name";
+    // x['remedy'] = "Default Remedy";
+    // x['recommendations'] = "Default Recommendations";
+    return x;
   }
   static getFilePaths(){
     return filepaths;
