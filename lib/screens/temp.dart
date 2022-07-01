@@ -1,4 +1,5 @@
 
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
@@ -88,8 +89,9 @@ class _TempPageState extends State<TempPage> {
     Tflite.close();
     try {
       String? res = await Tflite.loadModel(
-          model: 'assets/model/model.tflite',
-          labels: 'assets/model/labels.txt'
+        model: 'assets/model/trial_model1.tflite',
+          // model: 'assets/model/model.tflite',
+          labels: 'assets/model/labels.txt',
       );
       print(res);
     } on PlatformException {
@@ -97,31 +99,47 @@ class _TempPageState extends State<TempPage> {
     }
     print("Model Loaded");
   }
+  Future<Uint8List> _readFileBytes(String filePath,File image) async {
+    Uri myUri = Uri.parse(filePath);
+    Uint8List bytes=new Uint8List(1);
+    await image.readAsBytes().then((value) => {
+      bytes = Uint8List.fromList(value),
+      print("Reading Bytes Completed"),
+    }).catchError((onError) {
+      print("Error "+onError.toString());
+    });
+    return bytes;
+  }
   classifyImage(File image) async {
-    print("In classify Image");
-    var imageBytes = (await rootBundle.load(image.path)).buffer;
-    img.Image oriImage = img.decodeJpg(imageBytes.asUint8List())!;
-    img.Image resizedImage = img.copyResize(oriImage,height: 256,width: 256);
-    // var output = await Tflite.runModelOnImage(
-    //   path: image.path,
-    //   imageMean: 127.5,
-    //   imageStd: 127.5,
+    print("In classify Image:|"+image.path.toString());
+    // var imageBytes = (await rootBundle.load(image.path.toString())).buffer;
+    // List<int> imageBytes = new Uint8List(10);
+    // var imageBytes = await _readFileBytes(image.path.toString(), image);
+    // print("ImageBytes Done");
+    // print(imageBytes);
+    // // img.Image oriImage = img.decodeJpg(imageBytes.asUint8List())!;
+    // img.Image oriImage = img.decodeJpg(imageBytes)!;
+    // img.Image resizedImage = img.copyResize(oriImage,height: 256,width: 256);
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      imageMean: 127.5,
+      imageStd: 127.5,
+      numResults: 6,
+      threshold: 0.05,
+    );
+
+    // var output = await Tflite.runModelOnBinary(
+    //   binary: imageToByteListFloat32(resizedImage,120,127.5,127.5),// changing 256 to 120
     //   numResults: 38,
-    //   threshold: 0.5,
+    //   threshold: 0.1,
     //   asynch: true
     // );
-
-    var output = await Tflite.runModelOnBinary(
-      binary: imageToByteListFloat32(resizedImage,256,127.5,127.5),
-      numResults: 38,
-      threshold: 0.1,
-      asynch: true
-    );
     
     setState(() {
       _loading = false;
       _outputs = output;
     });
+    print("Outputs="+_outputs.toString());
   }
   Uint8List imageToByteListFloat32(
       img.Image image,
@@ -129,7 +147,9 @@ class _TempPageState extends State<TempPage> {
       double mean,
       double std
       ) {
-    var convertedBytes = Float32List(1*inputSize*inputSize*3);
+    print("Before Conversion here");
+    var convertedBytes = Float32List(1*inputSize*inputSize*9);
+    print("After conversion here");
     var buffer = Float32List.view(convertedBytes.buffer);
     int pixelIndex = 0;
     for(var i=0;i<inputSize ;i++) {

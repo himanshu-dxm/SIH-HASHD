@@ -8,6 +8,7 @@ import 'package:hashd/model/weather_data.dart';
 import 'package:hashd/screens/home.dart';
 import 'package:hashd/screens/login_page.dart';
 import 'package:hashd/screens/temp.dart';
+import 'package:hashd/screens/temp1.dart';
 import 'package:hashd/widgets/weatherInfoView.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:learning_translate/learning_translate.dart';

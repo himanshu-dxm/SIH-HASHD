@@ -31,9 +31,11 @@ dependencies:
   geocoding: ^2.0.1
   flutter_phone_direct_caller: ^2.1.0
   text_to_speech: ^0.2.3
+#  tflite_flutter_helper: ^0.3.1
   file_picker: 
   webview_flutter: 
   pdf: ^3.4.2
+  collection: ^1.16.0
   tflite:
   path_provider:
   image_picker: 
@@ -43,6 +45,7 @@ dependencies:
 #  camera:
   firebase_storage: 
   shared_preferences:
+  logger:
   flutter:
     sdk: flutter
 
