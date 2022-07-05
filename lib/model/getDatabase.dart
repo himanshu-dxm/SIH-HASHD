@@ -76,7 +76,6 @@ class DatabaseData{
         ),
       );
     } on Exception catch (e) {
-      // TODO
       return Text("ERROR");
     }
   }

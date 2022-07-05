@@ -208,7 +208,7 @@ class _TempPageState extends State<TempPage> {
       //             SizedBox(height: 50,),
       //             GestureDetector(
       //               onTap: () {
-      //                 // TODO: Translate
+      //                 // Translate
       //                 // translate();
       //                 // setState(() {});
       //               },
@@ -268,7 +268,7 @@ class _TempPageState extends State<TempPage> {
       //             SizedBox(height: 24,),
       //             GestureDetector(
       //               onTap: () async {
-      //                 // TODO: Help page redirect
+      //                 //Help page redirect
       //               },
       //               child: Container(
       //                 padding: EdgeInsets.all(8),

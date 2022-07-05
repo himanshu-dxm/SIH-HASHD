@@ -127,7 +127,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            // TODO: Translate
+                            // Translate
                             translate(dropDownLanguage.toLowerCase());
                             print("Translating");
                             setState(() {});
@@ -230,7 +230,7 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: () async {
-                      // TODO: Help page redirect
+                      // Help page redirect
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpPage()));
                     },
                     child: Container(

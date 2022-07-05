@@ -75,7 +75,6 @@ Future<WeatherLocations> fetchWeather() async {
       throw Exception('Failed to load Weather!!');
     }
   } on Exception catch (e) {
-    // TODO
     print(e.toString());
     return new WeatherLocations(cloud: 0,
         city: city, dateTime: "",

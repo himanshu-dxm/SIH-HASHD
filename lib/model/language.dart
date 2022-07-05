@@ -61,7 +61,6 @@ class LanguageML{
       LanguageML.ttp.setRate(0.8);
       LanguageML.ttp.setPitch(0.8);
     } on Exception catch (e) {
-      // TODO
       print(e);
     }
     // ttp.setVolume(1);

@@ -234,7 +234,6 @@ class _LoginPageState extends State<LoginPage> {
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  //TODO : Change push to PushReplacement
                                   otpSent=false;
                                   createUser();
                                 },

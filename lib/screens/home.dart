@@ -87,7 +87,6 @@ class _HomePageState extends State<HomePage> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            // TODO: Weather info Page
                             WeatherInfoView(),
                             !isDeleted?DatabaseData.notif(context):Container(),
                           ],

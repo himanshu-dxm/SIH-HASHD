@@ -29,7 +29,6 @@ class CapturePicture{
             
           });
     } on Exception catch (e) {
-      // TODO
       print(e.toString());
     }
   }

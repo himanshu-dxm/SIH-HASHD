@@ -14,7 +14,6 @@ class Database{
            });
            return 'no expert';
      } on Exception catch (e) {
-       // TODO
        print('didnt get expert error');
        return(e.toString());
      }
@@ -78,7 +77,6 @@ class Database{
       print('\n\n');
       return json.encode(urls);
     } on Exception catch (e) {
-      // TODO
       print(e.toString());
       return '';
     }
@@ -103,7 +101,6 @@ class Database{
         return ans;
       });
     } on Exception catch (e) {
-      // TODO
       print(e.toString());
       return e.toString();      
     }
