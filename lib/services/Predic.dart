@@ -9,6 +9,8 @@ import 'package:hashd/model/pdf_format.dart';
 import 'package:hashd/model/storageModels.dart';
 import 'package:hashd/model/weather_data.dart';
 
+import 'Cure.dart';
+
 class Prediction {
   static late Predictions preds;
   static Future<bool> getPredictions() async {
@@ -55,13 +57,14 @@ class Prediction {
   static Future<bool> performPrediction() async {
     List outputs = CapturePicture.outputs!;
     String diseaseLabel = outputs[0]["label"];
+    String remedy = Cure.getCure(diseaseLabel)??"No Remedies Yet";
     int index = diseaseLabel.indexOf("_");
     String plant = diseaseLabel.substring(1,index);
     String disease = diseaseLabel.substring(index+3,diseaseLabel.length-1);
     preds = Predictions(
         disease: disease,
         plantName: plant,
-        remedy: "Default Remedy",
+        remedy: remedy,
         recommendations:"Default Recommendations");
     return true;
   }
