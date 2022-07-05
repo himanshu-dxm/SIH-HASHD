@@ -31,10 +31,10 @@ Future<void> initialise() async {
   MyApp.uid = a!=null?a:false;
   MyUser.UID = (a!=null&&a!=false)?prefs.getString('UID')!:'';
   await WeatherData.getWeather();
-  // await TranslationModelManager.download('en');
-  // await TranslationModelManager.download('hi');
-  // await TranslationModelManager.download('te');
-  // await TranslationModelManager.download('kn');
+  await TranslationModelManager.download('en');
+  await TranslationModelManager.download('hi');
+  await TranslationModelManager.download('te');
+  await TranslationModelManager.download('kn');
 }
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
