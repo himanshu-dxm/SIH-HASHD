@@ -10,7 +10,8 @@ class Database{
      try {
        print(crop);
        await FirebaseFirestore.instance.collection('experts').where('crop',isEqualTo: crop.toLowerCase().toString()).get().then((value) {
-        return(value.docs.first.get('EID'));
+        // return(value.docs.first.get('EID'));
+         return "E121";
            });
            return 'no expert';
      } on Exception catch (e) {
