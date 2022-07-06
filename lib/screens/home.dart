@@ -80,6 +80,7 @@ class _HomePageState extends State<HomePage> {
               child: !isLoading?Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   // Top Notifications
                   Container(
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               isLoading = true;
                             });
-                            var img=await CapturePicture.getImages();
+                            var img=await CapturePicture.pickImageCamera();
                             setState(() {
                               isLoading = false;
                               numImages = CapturePicture.images.length;
@@ -139,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                                     setState(() {
                                       isLoading = true;
                                     });
-                                    var img=await CapturePicture.pickImage();
+                                    var img=await CapturePicture.pickImageGallery();
                                     setState(() {
                                       isLoading = false;
                                       numImages = CapturePicture.images.length;
@@ -155,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                               child: FloatingActionButton.extended(
                                 backgroundColor: Color(0xff587308),
                                   onPressed: () async {
-                                    
+
                                     setState(() {
                                       isLoading = true;
                                       numImages = 0;

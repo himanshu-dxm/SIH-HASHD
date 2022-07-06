@@ -8,6 +8,8 @@ import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/common_styles.dart';
 import 'package:intl/intl.dart';
 
+import '../model/capturePics.dart';
+
 class ReviewPage2 extends StatefulWidget {
   var doc;
   static var lock;
@@ -360,8 +362,9 @@ class MyListView extends StatelessWidget {
         // Image Container
         Container(
           margin:EdgeInsets.all(8),
-          child: Image.asset(
-            "assets/images/download.jpg",
+          // Top Image
+          child: Image.file(
+            CapturePicture.image1!,
           ),
         ),
 

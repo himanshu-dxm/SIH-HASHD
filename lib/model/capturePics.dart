@@ -33,7 +33,7 @@ class CapturePicture{
     }
   }
 
-  static pickImage() async {
+  static pickImageGallery() async {
     var image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(image==null) {
       print("Image======null");
@@ -43,6 +43,39 @@ class CapturePicture{
     image1 = File(image.path);
 
     classifyImage(image1!);
+  }
+  static pickImageCamera() async {
+    // var image = await ImagePicker().pickImage(source: ImageSource.camera);
+    // if(image==null) {
+    //   print("Image======null");
+    //   return null;
+    // }
+    // print("Image Picked ______ "+image.path.toString());
+    try {
+      var filePath = await getExternalStorageDirectory();
+      var image;
+      image=await ImagePicker().pickImage(source: ImageSource.camera).then((value)async {
+        print("tool image");
+        var b = await value!.readAsBytes();
+        images.add(b);
+        await File(filePath!.path.toString()+"/i/${images.length}image.png").create(recursive: true).then((value)async{
+          await value.writeAsBytes(b).then((value) {
+            filepaths.add(filePath.path.toString()+"/i/${images.length}image.png");
+            print("file added");
+          });
+        });
+        if(image==null) {
+          print("Image======null");
+          return null;
+        }
+        print("Image Picked ______ "+image.path.toString());
+        image1 = File(image.path);
+
+        classifyImage(image1!);
+      });
+    } on Exception catch (e) {
+      print(e.toString());
+    }
   }
   static classifyImage(File image) async {
     print("In classify Image:|"+image.path.toString());

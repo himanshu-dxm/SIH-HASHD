@@ -13,6 +13,9 @@ import 'Cure.dart';
 
 class Prediction {
   static late Predictions preds;
+  static String remedy="No Remedy";
+  static String plant="No Plant";
+  static String disease="No disease detected";
   static Future<bool> getPredictions() async {
     try{    //get predictions and pass "pred" to next page
     var UID = MyUser.UID;
@@ -55,44 +58,44 @@ class Prediction {
     }
   }
 
-  static Future<bool> performPrediction() async {
-    var soildata = await APIDATA.getSoildata();
+  static bool performPrediction(){
+
     List outputs = CapturePicture.outputs!;
     String diseaseLabel = outputs[0]["label"];
-    String remedy = Cure.getCure(diseaseLabel)??"No Remedies Yet";
-    int index = diseaseLabel.indexOf("_");
-    String plant = diseaseLabel.substring(1,index);
-    String disease = diseaseLabel.substring(index+3,diseaseLabel.length-1);
+    remedy = Cure.getCure(diseaseLabel)??"No Remedies Yet";
+    int index = diseaseLabel.indexOf("__");
+    plant = diseaseLabel.substring(1,index);
+    disease = diseaseLabel.substring(index+3,diseaseLabel.length-1);
     preds = Predictions(
         disease: disease,
         plantName: plant,
         remedy: remedy,
         recommendations:"Default Recommendation");
 
-    var UID = MyUser.UID;
-    var RID = DateTime.now().millisecondsSinceEpoch.toString();
-    print("RId"+RID);
-    //
-    // var EID = await Database.getExpert(plant);
-    // Details details = Details(soil: soildata['soil'].toString(), humidity: WeatherData.weather.humidity.toString(), crop: plant, no_of_cases: 1, location: WeatherData.weather.city.toString(), no_of_images: CapturePicture.images.length,lackIn:soildata['lack'].toString());
-    // String no_of_cases = '0';//TODO : done
-    // ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil,remedy:remedy,disease:disease);
-    // var urls = await Database.pushImages(RID);
-    // Database.pushdata(RID, report, urls);
+    return true;
+  }
+  static Future<void> contactExpert() async {
 
+    try {
+      var soildata = await APIDATA.getSoildata();
+      var UID = MyUser.UID;
+      var RID = DateTime.now().millisecondsSinceEpoch.toString();
+      print("RId"+RID);
+      Details details = Details(soil: soildata['soil'].toString(), humidity: WeatherData.weather.humidity.toString(), crop: plant, no_of_cases: 1, location: WeatherData.weather.city.toString(), no_of_images: CapturePicture.images.length,lackIn:soildata['lack'].toString());
+      // //store images to database
+      var EID = await Database.getExpert(plant);
+      // print(EID);
+      String no_of_cases = '0';//TODO : done
+      ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil,remedy:remedy,disease:disease);
+      var urls = await Database.pushImages(RID);
+      Database.pushdata(RID, report, urls);
+    } on Exception catch (e) {
+      print("Error Occurred " + e.toString());
 
-    // preds=pred;
-    // //Details
-    Details details = Details(soil: soildata['soil'].toString(), humidity: WeatherData.weather.humidity.toString(), crop: plant, no_of_cases: 1, location: WeatherData.weather.city.toString(), no_of_images: CapturePicture.images.length,lackIn:soildata['lack'].toString());
-    // //store images to database
-    var EID = await Database.getExpert(plant);
-    // print(EID);
-    String no_of_cases = '0';//TODO : done
-    ReportFormat report = ReportFormat(UID: UID, EID: EID, crop: details.crop, humidity: details.humidity, location: details.location, lock: '0', no_of_cases: no_of_cases, no_of_images: details.no_of_images.toString(), soil: details.soil,remedy:remedy,disease:disease);
-    var urls = await Database.pushImages(RID);
-    Database.pushdata(RID, report, urls);
+    }
     //generate pdf
     // generatePDF(PDFTitle(title: 'Request'),Id(id:RID,time:DateTime.now().toString()) , details, CapturePicture.images, pred);
-    return true;
+    CapturePicture.images.clear();
+    CapturePicture.filepaths.clear();
   }
 }

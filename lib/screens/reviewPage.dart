@@ -7,6 +7,7 @@ import 'package:hashd/model/language.dart';
 import 'package:hashd/model/maps.dart';
 import 'package:hashd/model/pdf_format.dart';
 import 'package:hashd/screens/help.dart';
+import 'package:hashd/screens/home.dart';
 import 'package:hashd/services/Predic.dart';
 import 'package:hashd/widgets/common_styles.dart';
 import 'package:intl/intl.dart';
@@ -542,6 +543,10 @@ class MyListView extends StatelessWidget {
         // Contact Expert
         GestureDetector(
           onTap: ()async{
+
+            await Prediction.contactExpert().then( (value) {
+              Navigator.push(context, MaterialPageRoute(builder: (c)=>HomePage()));
+            });
               await FirebaseFirestore.instance.collection('reports').where('RID',).get();
           },child: CommonStyles.roundButton(context, "Contact Expert!"),
         ),

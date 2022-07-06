@@ -14,8 +14,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:learning_translate/learning_translate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// TODO : 1 Expert side setup, 2 Review Page 2, 3 ImagePicker, 4 Audio Options , 5 Amith
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialise();
