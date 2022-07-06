@@ -3,10 +3,11 @@ import 'package:text_to_speech/text_to_speech.dart';
 class LanguageML{
   static TextToSpeech ttp = TextToSpeech();
   static var languagesMappings = {
-    'hindi':'hi',
-    'telugu':'te',
-    'tamil':'ta',
-    'kannada':'kn',
+    'Hindi':'hi',
+    'Telugu':'te',
+    'Tamil':'ta',
+    'Kannada':'kn',
+    'English':'en'
     };
   //returns future string of converted text .. if error returns null string
   static Future<String> convertLanguage(String to_lang,String text)async{
@@ -18,6 +19,7 @@ class LanguageML{
       else{
         ans = languagesMappings[to_lang];
       }
+      print("ans"+ans);
       bool isDownloaded = await TranslationModelManager.check(ans);
       bool engdownload =  await TranslationModelManager.check('en'); 
       if(!isDownloaded){
@@ -56,8 +58,9 @@ class LanguageML{
     LanguageML.ttp.resume();
     }catch(e){print(e.toString());}
   }
-  static void speechOutput(String data,String to_lang){
+  static Future<void> speechOutput(String data,String to_lang) async {
     try {
+      print("data"+data+to_lang);
       LanguageML.ttp.setRate(0.8);
       LanguageML.ttp.setPitch(0.8);
     } on Exception catch (e) {
@@ -71,10 +74,10 @@ class LanguageML{
       else{
         ans = languagesMappings[to_lang];
       }
-      print("in sppec");
-    LanguageML.ttp.setLanguage(ans);
+      print("in sppec"+ans);
+    await LanguageML.ttp.setLanguage(ans);
     print('set lan');
-    LanguageML.ttp.speak(data);
+    await LanguageML.ttp.speak(data);
     
     print('done');
   }

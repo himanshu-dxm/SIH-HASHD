@@ -29,8 +29,9 @@ class _ReviewPage2State extends State<ReviewPage2> {
   late String message;
   late String products;
   late String links;
-
-  String dropDownLanguage = "Hindi";
+  var lang="English";
+  var prevlan="English";
+  var dropDownLanguage = "Hindi";
 
   @override
   void initState() {
@@ -64,8 +65,9 @@ class _ReviewPage2State extends State<ReviewPage2> {
 
   @override
   Widget build(BuildContext context) {
-    
-    return Scaffold(
+    bool isLoading = false;
+
+    return isLoading?Center(child:CircularProgressIndicator()):Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         leading: GestureDetector(
@@ -128,9 +130,16 @@ class _ReviewPage2State extends State<ReviewPage2> {
                         GestureDetector(
                           onTap: () {
                             // Translate
-                            translate(dropDownLanguage.toLowerCase());
+                            setState(() {
+                              isLoading = true;
+                            });
+                            translate(dropDownLanguage);
                             print("Translating");
-                            setState(() {});
+                            setState(() {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            });
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
@@ -152,13 +161,17 @@ class _ReviewPage2State extends State<ReviewPage2> {
                           value: dropDownLanguage,
                           onChanged: (String? value) {
                             setState(() {
+                              print(value);
                               dropDownLanguage = value!;
+                              print(dropDownLanguage);
+                              lang = value;
                             });
                           },
                           items: [
                             DropdownMenuItem(child: Text("Hindi"),value: "Hindi",),
                             DropdownMenuItem(child: Text("Kannada"),value: "Kannada",),
-                            DropdownMenuItem(child: Text("English"),value: "English",)
+                            DropdownMenuItem(child: Text("English"),value: "English",),
+                            DropdownMenuItem(child: Text("Telugu"),value: "Telugu",)
                           ],
                         ),
                       ],
@@ -166,9 +179,14 @@ class _ReviewPage2State extends State<ReviewPage2> {
                   ),
                   SizedBox(height: 24,),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       try {
-                        LanguageML.speechOutput(message, 'hindi');
+                        print("Crop Name"+lang);
+                        await LanguageML.speechOutput(cropName+diseaseDetected+prediction+message, lang);
+                        // await LanguageML.speechOutput(cropName, lang);
+                        // await LanguageML.speechOutput(diseaseDetected, lang);
+                        // await LanguageML.speechOutput(prediction, lang);
+                        // await LanguageML.speechOutput(message, lang);
                       } on Exception catch (e) {
                        print(e.toString());
                       }

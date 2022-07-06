@@ -540,11 +540,11 @@ class MyListView extends StatelessWidget {
 
 
         // Contact Expert
-        // GestureDetector(
-        //   onTap: ()async{
-        //       // await FirebaseFirestore.instance.collection('reports').where('RID',).get();
-        //   },child: CommonStyles.roundButton(context, "Contact Expert!"),
-        // ),
+        GestureDetector(
+          onTap: ()async{
+              await FirebaseFirestore.instance.collection('reports').where('RID',).get();
+          },child: CommonStyles.roundButton(context, "Contact Expert!"),
+        ),
         ],
     );
   }
